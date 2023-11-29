@@ -28,3 +28,5 @@ Picked up a player from **TOR** last week who is only playing 2 games this week 
 |  **X**  | Add more factors to determine streamer score based on advanced stats, recent team trends and more |
 |  **X**  | Create pages for data on each team and their rosters |
 |  **X**  | More as I think of them.. |
+## License
+[MIT License](https://github.com/mardeyar/nhl_streamers/blob/master/LICENSE.md)
