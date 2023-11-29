@@ -23,6 +23,7 @@ Picked up a player from **TOR** last week who is only playing 2 games this week 
 | Feature | Description |
 | ------- | ----------- |
 |  **X**  | Integrate Yahoo API to show which players might be good targets |
+|  **X**  | Give option to choose week to view ie. look at next weeks schedule a week early |
 |  **X**  | Add logos to team names |
 |  **X**  | Add more factors to determine streamer score based on advanced stats, recent team trends and more |
 |  **X**  | Create pages for data on each team and their rosters |
