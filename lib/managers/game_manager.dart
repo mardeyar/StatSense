@@ -13,6 +13,7 @@ class GameManager {
     final DateTime weekStart = today.subtract(Duration(days: today.weekday - 1));
     final formattedDate = DateUtils.formatWeekStartDate(weekStart);
 
+    // Fetch the data from the NHL API
     final response = await http.get(
       Uri.parse('https://api-web.nhle.com/v1/schedule/$formattedDate'),
     );
@@ -21,11 +22,13 @@ class GameManager {
       final Map<String, dynamic> responseData = json.decode(response.body);
       final List<dynamic> gameWeek = responseData['gameWeek'];
 
+      // Process data from API call
       gameDates = gameWeek.map((gameData) {
         final List<Game> games = [];
         final List<dynamic> gamesData = gameData['games'];
         final bool offDay = gameData['numberOfGames'] >= 1 && gameData['numberOfGames'] <= 7;
 
+        // Iterate through today's games and add to gameList
         for (var game in gamesData) {
           games.add(Game(
             date: game['startTimeUTC'],
@@ -37,6 +40,7 @@ class GameManager {
           updateTeamData(game['homeTeam']['abbrev'], offDay);
         }
 
+        // Creates a gameDate object for each day, storing the data in a gameList
         return GameDate(
           date: gameData['date'],
           numberOfGames: gameData['numberOfGames'],
@@ -45,8 +49,8 @@ class GameManager {
         );
       }).toList();
 
+      // Count how many 'offDays' for the teams
       countOffDays();
-      //calculateStreamScores();
     } else {
       throw Exception('Failed to load NHL Game data.');
     }
@@ -74,6 +78,11 @@ class GameManager {
       gamesPerDay[date.date] = date.numberOfGames;
     }
 
+    /*
+     * This section of code goes through each team's game schedule to count games played on offDays.
+     * It looks at the number of games set for each date, checking if it's within offDay range (1 to 7).
+     * Then, it checks if a team has a game on that date. If they do, it increments offDay count.
+    */
     for (final team in teamMap.values) {
       for (final date in gamesPerDay.keys) {
         final todayGames = gamesPerDay[date]!;
@@ -92,6 +101,7 @@ class GameManager {
       final offDaysWeight = team.offDays * 0.10;
       final gameWeight = team.totalGames * 0.15;
 
+      // Can probably tweak this method of weighting the streamerScore
       final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
       team.streamerScore = weightedScore;
     }
