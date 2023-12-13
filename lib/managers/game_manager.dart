@@ -8,6 +8,7 @@ class GameManager {
   late List<GameDate> gameDates = [];
   late Map<String, Team> teamMap = {};
 
+  // This method retrieves all game data for specified week
   Future<void> fetchGameData() async {
     final DateTime today = DateTime.now();
     final DateTime weekStart = today.subtract(Duration(days: today.weekday - 1));
