@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../UI/homepage.dart';
-import '../UI/teamstats.dart';
+import '../UI/teamstandings.dart';
 import '../UI/schedule.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> appPages = [
     const HomePage(),
     const Schedule(),
-    const TeamStats(),
+    const TeamStandings(),
   ];
 
   // Sets the initial index on bottom nav to 0; 'HomePage'
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.auto_graph),
-              label: 'Team Stats',
+              label: 'Team Standings',
             )
           ],
           currentIndex: _selectedNavIndex,
