@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../UI/homepage.dart';
 import '../UI/teamstats.dart';
+import '../UI/schedule.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,13 +18,11 @@ class _MyAppState extends State<MyApp> {
   // This section will define all the pages used by the app, shown on bottom nav
   final List<Widget> appPages = [
     const HomePage(),
+    const Schedule(),
     const TeamStats(),
   ];
 
-  /*Sets the initial index on bottom nav to 0; 'HomePage'
-  *Note to self: prefixing the variable name with an underscore denotes that the
-  *variable is private to this class
-  */
+  // Sets the initial index on bottom nav to 0; 'HomePage'
   int _selectedNavIndex = 0;
 
   void _onItemTapped(int index) {
@@ -32,13 +31,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Hides the "debug" corner label
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF606060)),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF1E1E1E)),
       home: Scaffold(
         body: appPages[_selectedNavIndex], // Will show the selected nav page
         bottomNavigationBar: BottomNavigationBar(
@@ -46,6 +44,10 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.sports_hockey),
               label: 'Games',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.schedule),
+              label: 'Schedule',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.auto_graph),
