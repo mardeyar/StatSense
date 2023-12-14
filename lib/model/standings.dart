@@ -1,35 +1,36 @@
 class Team {
-  final String teamName;
-  final String conference;
-  final String division;
-  final int gamesPlayed;
-  final int goalDiff;
-  final int goalsAgainst;
-  final int goalsFor;
-  final int homeGoalDiff;
-  final int homeGoalsAgainst;
-  final int homeGoalsFor;
-  final int homeLosses;
-  final int homeWins;
-  final int homeOTL;
-  final int last10GoalDiff;
-  final int last10GoalsFor;
-  final int last10GoalsAgainst;
-  final int last10Losses;
-  final int last10Wins;
-  final int last10OTL;
-  final int totalLosses;
-  final int totalWins;
-  final int totalOTL;
-  final int roadGoalDiff;
-  final int roadGoalsAgainst;
-  final int roadGoalsFor;
-  final int roadLosses;
-  final int roadWins;
-  final int roadOTL;
-  final String streakCode;
-  final int streakCount;
-  final String teamLogoURL;
+  String teamName;
+  String conference;
+  String division;
+  int gamesPlayed;
+  int goalDiff;
+  int goalsAgainst;
+  int goalsFor;
+  int homeGoalDiff;
+  int homeGoalsAgainst;
+  int homeGoalsFor;
+  int homeLosses;
+  int homeWins;
+  int homeOTL;
+  int last10GoalDiff;
+  int last10GoalsFor;
+  int last10GoalsAgainst;
+  int last10Losses;
+  int last10Wins;
+  int last10OTL;
+  int totalLosses;
+  int totalWins;
+  int totalOTL;
+  int roadGoalDiff;
+  int roadGoalsAgainst;
+  int roadGoalsFor;
+  int roadLosses;
+  int roadWins;
+  int roadOTL;
+  String streakCode;
+  int streakCount;
+  String teamLogoURL;
+  //List<String> roster;
 
   Team({
     required this.teamName,
@@ -62,6 +63,7 @@ class Team {
     required this.roadOTL,
     required this.streakCode,
     required this.streakCount,
-    required this.teamLogoURL
+    required this.teamLogoURL,
+    //required this.roster,
   });
 }
