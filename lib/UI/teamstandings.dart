@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nhl/UI/teamdetails.dart';
 import '../managers/standings_manager.dart';
 import '../model/standings.dart';
