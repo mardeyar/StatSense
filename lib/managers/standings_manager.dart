@@ -21,6 +21,7 @@ class StandingsManager {
       teamList = allTeams.map((teamData) {
         return Team(
           teamName: teamData['teamName']['default'],
+          teamAbbrev: teamData['teamAbbrev']['default'],
           conference: teamData['conferenceName'],
           division: teamData['divisionName'],
           gamesPlayed: teamData['gamesPlayed'],
@@ -50,7 +51,7 @@ class StandingsManager {
           roadOTL: teamData['roadOtLosses'],
           streakCode: teamData['streakCode'],
           streakCount: teamData['streakCount'],
-          teamLogoURL: teamData['teamLogo'],
+          //teamLogoURL: teamData['teamLogo'],
         );
       }).toList();
     } else {
