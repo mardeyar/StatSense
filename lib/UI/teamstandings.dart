@@ -32,21 +32,21 @@ class _TeamStandingsState extends State<TeamStandings> {
         title: const Text('Team Statistics'),
       ),
       body: FutureBuilder(
-        future: teamView.fetchTeams(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              // If the data is loading, display a loading circle
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text("Error fetching NHL Teams data..."),
-            );
-          } else {
-            return buildTeamList(teamView.teamList);
+          future: teamView.fetchTeams(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                // If the data is loading, display a loading circle
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text("Error fetching NHL Teams data..."),
+              );
+            } else {
+              return buildTeamList(teamView.teamList);
+            }
           }
-        }
       ),
     );
   }
@@ -73,8 +73,8 @@ class _TeamStandingsState extends State<TeamStandings> {
               padding: EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  SvgPicture.network(
-                    team.teamLogoURL,
+                  Image.asset(
+                    team.getLogoURL(),
                     height: 40,
                     width: 40,
                   ),
