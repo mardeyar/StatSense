@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.auto_graph),
-              label: 'Team Standings',
+              label: 'Team Stats',
             )
           ],
           currentIndex: _selectedNavIndex,
