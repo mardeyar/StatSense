@@ -1,5 +1,6 @@
 class Team {
   String teamName;
+  String teamAbbrev;
   String conference;
   String division;
   int gamesPlayed;
@@ -29,11 +30,12 @@ class Team {
   int roadOTL;
   String streakCode;
   int streakCount;
-  String teamLogoURL;
+  //String teamLogoURL;
   //List<String> roster;
 
   Team({
     required this.teamName,
+    required this.teamAbbrev,
     required this.conference,
     required this.division,
     required this.gamesPlayed,
@@ -63,7 +65,12 @@ class Team {
     required this.roadOTL,
     required this.streakCode,
     required this.streakCount,
-    required this.teamLogoURL,
+    //required this.teamLogoURL,
     //required this.roster,
   });
+
+  // Generate a local URL to display team logos. This saves making a network request every time
+  String getLogoURL() {
+    return 'assets/images/team_logos/${teamAbbrev}.png';
+  }
 }
