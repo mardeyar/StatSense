@@ -14,8 +14,8 @@ class TeamDetails extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.network(
-              team.teamLogoURL,
+            Image.asset(
+              team.getLogoURL(),
               height: 40,
               width: 40,
             ),
