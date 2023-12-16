@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../managers/standings_manager.dart';
 import '../managers/game_manager.dart';
 import '../model/games.dart';
 
@@ -11,11 +10,7 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-  final GameManager weeklySchedule = GameManager();
-  final List<GameDate> weeklyGames;
-  final Map<String, Team> listOfTeams;
-
-  SchedulePage({required this.weeklyGames, required this.listOfTeams});
+  final GameManager scheduleView = GameManager();
 
   @override
   void initState() {
@@ -28,45 +23,67 @@ class _ScheduleState extends State<Schedule> {
       appBar: AppBar(
         title: const Text('NHL Schedule'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: weeklyGames.length,
-              itemBuilder: (context, index) {
-                final GameDate gameDay = weeklyGames[index];
-                return InkWell(
-                  onTap: () {
-                    // Handle day selection
-                  },
-                  child: Container(
-                    width: 80,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Text(
-                      '${gameDay.date}',
-                      style: TextStyle(color: Colors.white),
-                    ),
+      body: FutureBuilder(
+        future: scheduleView.fetchGameData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              // If data is loading, display a 'loading circle'
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Error: Could not fetch NHL Game data..'),
+            );
+          } else {
+            return buildGameList(scheduleView.gameDates);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildGameList(List<GameDate> gameDates) {
+    return ListView.builder(
+      itemCount: gameDates.length,
+      itemBuilder: (context, index) {
+        final GameDate gameDay = gameDates[index];
+        return ExpansionTile(
+          title: ListTile(
+            title: Text(
+              'Date: ${gameDay.date}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            subtitle: Text(
+              'Number of games: ${gameDay.numberOfGames}',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: gameDay.gameList.length,
+              itemBuilder: (context, idx) {
+                final Game game = gameDay.gameList[idx];
+                return ListTile(
+                  title: Text(
+                    '${game.awayTeam} @ ${game.homeTeam}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    'Date: ${game.date}',
+                    style: TextStyle(color: Colors.white),
                   ),
                 );
               },
             ),
-          ),
-          // Vertical listview for games
-          Expanded(
-            child: ListView.builder(
-              itemCount: weeklyGames.length > 0
-                  ? weeklyGames[0].gameList[index];
-
-            ),
-          )
-        ],
-      ),
-    )
+          ],
+        );
+      },
+    );
   }
 }

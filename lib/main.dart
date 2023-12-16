@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../UI/homepage.dart';
 import '../UI/teamstandings.dart';
 import '../UI/schedule.dart';
+import '../UI/streamerscores.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> appPages = [
     const HomePage(),
     const Schedule(),
+    const StreamerScore(),
     const TeamStandings(),
   ];
 
@@ -40,22 +42,36 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: appPages[_selectedNavIndex], // Will show the selected nav page
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.sports_hockey),
               label: 'Games',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.schedule),
+              icon: Icon(Icons.calendar_month),
               label: 'Schedule',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.auto_graph),
+              icon: Icon(Icons.score),
+              label: 'Streamer Scores',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.query_stats),
               label: 'Team Stats',
             )
           ],
           currentIndex: _selectedNavIndex,
-          selectedItemColor: Color(0xFF202020),
+          selectedItemColor: Color(0xFF3FC3F5),
+          unselectedItemColor: Colors.black,
+          unselectedLabelStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 8,
+          ),
+          selectedLabelStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 8,
+          ),
           onTap: _onItemTapped,
         ),
       ),
