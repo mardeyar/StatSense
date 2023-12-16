@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // This section will define all the pages used by the app, shown on bottom nav
   final List<Widget> appPages = [
-    const HomePage(),
     const Schedule(),
     const StreamerScore(),
     const TeamStandings(),
@@ -46,10 +45,6 @@ class _MyAppState extends State<MyApp> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.sports_hockey),
-              label: 'Games',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
               label: 'Schedule',
             ),
             BottomNavigationBarItem(
