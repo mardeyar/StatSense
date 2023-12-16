@@ -16,6 +16,7 @@ class StandingsManager {
     if (teamResponse.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(teamResponse.body);
       final List<dynamic> allTeams = responseData['standings'];
+      Team teamObj;
 
       // Process the data from the team retrieval API call
       teamList = allTeams.map((teamData) {
@@ -40,6 +41,7 @@ class StandingsManager {
           last10Losses: teamData['l10Losses'],
           last10Wins: teamData['l10Wins'],
           last10OTL: teamData['l10OtLosses'],
+          last10Points: teamData['l10Points'],
           totalLosses: teamData['losses'],
           totalWins: teamData['wins'],
           totalOTL: teamData['otLosses'],
