@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //scheduleView.fetchGameData(); // Get this weeks game data
   }
 
   @override
