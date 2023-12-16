@@ -19,6 +19,7 @@ class Team {
   int last10Losses;
   int last10Wins;
   int last10OTL;
+  int last10Points;
   int totalLosses;
   int totalWins;
   int totalOTL;
@@ -54,6 +55,7 @@ class Team {
     required this.last10Losses,
     required this.last10Wins,
     required this.last10OTL,
+    required this.last10Points,
     required this.totalLosses,
     required this.totalWins,
     required this.totalOTL,
@@ -72,5 +74,23 @@ class Team {
   // Generate a local URL to display team logos. This saves making a network request every time
   String getLogoURL() {
     return 'assets/images/team_logos/${teamAbbrev}.png';
+  }
+
+  String getTrendingAnalysis() {
+    if (this.last10Points >= 0 && this.last10Points <= 7) {
+      return "The ${teamName} have been a bit cold recently, mustering just "
+          "${last10Points} points in their past 10 games and a ${last10Wins} - "
+          "${last10Losses} - ${last10OTL} record.";
+    } else if (this.last10Points >= 8 && this.last10Points <= 13) {
+      return "The ${teamName} have been playing some good hockey, gaining ${last10Points} "
+          "points in their past 10 games with a record of ${last10Wins} - ${last10Losses} - ${last10OTL}.";
+    } else if (this.last10Points >= 14 && this.last10Points <= 20) {
+      return "The ${teamName} have been running hot lately, getting points in "
+          "(${last10Wins} + ${last10OTL}) of their last 10 games, good for ${last10Points} "
+          "points. They have a ${last10Wins} - ${last10Losses} - ${last10OTL} "
+          "record in their last 10.";
+    } else {
+      return "The program broke, this text should never have been shown";
+    }
   }
 }
