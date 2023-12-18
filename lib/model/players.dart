@@ -10,6 +10,8 @@ class Player {
   final double last5Shots;
   final double last5PIM;
 
+  double _performanceScore = 0;
+
   Player ({
     required this.playerID,
     required this.firstName,
@@ -22,4 +24,10 @@ class Player {
     required this.last5Shots,
     required this.last5PIM,
   });
+
+  double get performanceScore => _performanceScore;
+
+  set performanceScore(double value) {
+    _performanceScore = value;
+  }
 }
