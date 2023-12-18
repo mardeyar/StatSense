@@ -31,8 +31,6 @@ class Team {
   int roadOTL;
   String streakCode;
   int streakCount;
-  //String teamLogoURL;
-  //List<String> roster;
 
   Team({
     required this.teamName,
@@ -67,8 +65,6 @@ class Team {
     required this.roadOTL,
     required this.streakCode,
     required this.streakCount,
-    //required this.teamLogoURL,
-    //required this.roster,
   });
 
   // Generate a local URL to display team logos. This saves making a network request every time
