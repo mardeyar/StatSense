@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../UI/homepage.dart';
 import '../UI/teamstandings.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
