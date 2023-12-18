@@ -11,7 +11,7 @@ class NHLApi {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('Failed to load NHL Game data.');
+      throw Exception('Failed to load NHL Game data...');
     }
   }
 
@@ -24,7 +24,20 @@ class NHLApi {
     if (standingsResponse.statusCode == 200) {
       return json.decode(standingsResponse.body);
     } else {
-      throw Exception('Failed to load NHL standings');
+      throw Exception('Failed to load NHL standings...');
+    }
+  }
+  
+  // Builds the method to fetch player data from teams
+  static Future<Map<String, dynamic>> fetchPlayerData(int playerId) async {
+    final playerDataResponse = await http.get(
+      Uri.parse('https://api-web.nhle.com/v1/player/$playerId/landing'),
+    );
+
+    if (playerDataResponse.statusCode == 200) {
+      return json.decode(playerDataResponse.body);
+    } else {
+      throw Exception('Failed to load player data...');
     }
   }
 }
