@@ -16,7 +16,6 @@ class StandingsManager {
     if (teamResponse.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(teamResponse.body);
       final List<dynamic> allTeams = responseData['standings'];
-      Team teamObj;
 
       // Process the data from the team retrieval API call
       teamList = allTeams.map((teamData) {
@@ -53,11 +52,30 @@ class StandingsManager {
           roadOTL: teamData['roadOtLosses'],
           streakCode: teamData['streakCode'],
           streakCount: teamData['streakCount'],
-          //teamLogoURL: teamData['teamLogo'],
         );
       }).toList();
     } else {
-      throw Exception('Failed to load NHL teams data.');
+      throw Exception('Failed to load NHL teams data...');
+    }
+  }
+  
+  // Need to fetch the playerID of each player from teams for stats lookup
+  Future<List<int>> fetchPlayerID(String teamAbbrev) async {
+    final rosterResponse = await http.get(
+      Uri.parse('https://api-web.nhle.com/v1/roster/$teamAbbrev/current'),
+    );
+
+    if (rosterResponse.statusCode == 200) {
+      final Map<String, dynamic> rosterData = json.decode(rosterResponse.body);
+      final List<dynamic> allPlayers = [
+        ...rosterData['forwards'],
+        ...rosterData['defensemen'],
+        ...rosterData['goalies'],
+      ];
+
+      return allPlayers.map<int>((player) => player['id']).toList();
+    } else {
+      throw Exception('Failed to load roster...');
     }
   }
 }
