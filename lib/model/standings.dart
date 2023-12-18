@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 class Team {
   String teamName;
   String teamAbbrev;
@@ -31,6 +35,7 @@ class Team {
   int roadOTL;
   String streakCode;
   int streakCount;
+  List<int> roster = [];
 
   Team({
     required this.teamName,
@@ -71,7 +76,28 @@ class Team {
   String getLogoURL() {
     return 'assets/images/team_logos/${teamAbbrev}.png';
   }
+  
+  // Method to extract the playerID and add to the roster list
+  Future<void> fetchRoster() async {
+    final playerResponse = await http.get(
+      Uri.parse('https://api-web.nhle.com/v1/roster/$teamAbbrev/current')
+    );
 
+    if (playerResponse.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(playerResponse.body);
+      final List<dynamic> forwards = responseData['forwards'];
+      final List<dynamic> defensemen = responseData['defensemen'];
+
+      // Loop through to add all these playerID into the roster list
+      for (var player in [...forwards, ...defensemen]) {
+        roster.add(player['id']);
+      }
+    } else {
+      throw Exception('Error: failed to load playerIDs for $teamName');
+    }
+  }
+
+  // String method to show a quick summary of the teams recent performance
   String getTrendingAnalysis() {
     if (this.last10Points >= 0 && this.last10Points <= 7) {
       return "The ${teamName} have been a bit cold recently, mustering just "
