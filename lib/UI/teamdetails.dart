@@ -37,6 +37,7 @@ class TeamDetails extends StatelessWidget {
             Text('Goals For: ${team.goalsFor}', style: TextStyle(color: Colors.white)),
             Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),
             Text('Streak: ${team.streakCount}${team.streakCode}', style: TextStyle(color: Colors.white)),
+            Text('${team.roster}', style: TextStyle(color: Colors.white)),
           ],
         ),
       ),
