@@ -78,20 +78,7 @@ class _TeamStandingsState extends State<TeamStandings> {
                     width: 40,
                   ),
                   SizedBox(width: 8),
-                  Text(
-                    team.teamName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Text(
-                        team.getTrendingAnalysis(),
-                      ),
-                    ),
-                  ),
+                  Text(team.teamName),
                 ],
               ),
             ),
