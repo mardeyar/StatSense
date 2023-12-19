@@ -1,14 +1,14 @@
 class Player {
-  final double playerID;
+  final int playerID;
   final String firstName;
   final String lastName;
-  final double last5Goals;
-  final double last5Assists;
-  final double last5Pts;
-  final double last5PlusMinus;
-  final double last5PPG;
-  final double last5Shots;
-  final double last5PIM;
+  final num last5Goals;
+  final num last5Assists;
+  final num last5Pts;
+  final num last5PlusMinus;
+  final num last5PPG;
+  final num last5Shots;
+  final num last5PIM;
 
   double _performanceScore = 0;
 
