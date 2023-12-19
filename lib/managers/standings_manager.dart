@@ -6,6 +6,7 @@ import '../model/players.dart';
 
 class StandingsManager {
   List<Team> teamList = [];
+  List<Player> playerList = [];
 
   Future<void> fetchTeams() async {
 
@@ -77,13 +78,13 @@ class StandingsManager {
 
       // Extract the players last 5 game totals, initialize to 0
       List<dynamic> last5Games = playerData['last5Games'];
-      double last5Goals = 0;
-      double last5Assists = 0;
-      double last5Pts = 0;
-      double last5PlusMinus = 0;
-      double last5PPG = 0;
-      double last5Shots = 0;
-      double last5PIM = 0;
+      num last5Goals = 0;
+      num last5Assists = 0;
+      num last5Pts = 0;
+      num last5PlusMinus = 0;
+      num last5PPG = 0;
+      num last5Shots = 0;
+      num last5PIM = 0;
 
       for (var game in last5Games) {
         last5Goals += game['goals'];
@@ -109,6 +110,9 @@ class StandingsManager {
         last5PIM: last5PIM,
       );
 
+      // Add the newly created player to playerList
+      playerList.add(player);
+
       // Calculate the top 5 performers on each team
       player.performanceScore = calculatePerformanceScore(player);
 
@@ -119,17 +123,23 @@ class StandingsManager {
   }
 
   // Fetches the top performing players
-  List<Player> fetchTopPlayers(Team team) {
-    List<Player> roster = team.roster;
+  Future<List<Player>> fetchTopPlayers(Team team) async {
+    List<Player> topPlayers = [];
 
-    roster.forEach((player) {
-      double performanceScore = calculatePerformanceScore(player);
-      player.performanceScore = performanceScore;
-    });
+    // Need to iterate through the players to fetch top performers details
+    for (int playerId in team.roster) {
+      try {
+        Player player = await fetchPlayerDetails(playerId);
+        topPlayers.add(player);
+      } catch (e) {
+        print('Error: $e');
+      }
 
-    roster.sort((a, b) => b.performanceScore.compareTo(a.performanceScore));
+    }
 
-    return roster.take(5).toList();
+    topPlayers.sort((playerA, playerB) => playerB.performanceScore.compareTo(playerA.performanceScore));
+
+    return topPlayers.length > 5 ? topPlayers.sublist(0, 5) : topPlayers;
   }
 
   double calculatePerformanceScore(Player player) {
