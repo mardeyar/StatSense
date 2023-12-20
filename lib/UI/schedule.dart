@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../managers/game_manager.dart';
 import '../model/games.dart';
 import '../utils/styles.dart';
+import '../model/standings.dart' as teamLogo;
 
 class Schedule extends StatefulWidget {
   const Schedule({Key? key}) : super(key: key);
@@ -111,15 +112,52 @@ class _ScheduleState extends State<Schedule> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: gameDay.gameList.map((game) {
                 final formattedTime = _formatTime(game.date);
-                return ListTile(
-                  title: Text(
-                    '${game.awayTeam} @ ${game.homeTeam}',
-                    style: BodyTextStyle.bodyTextStyleReg,
-                  ),
-                  subtitle: Text(
-                    '$formattedTime',
-                    style: BodyTextStyle.bodyTextStyleReg,
-                  ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Image.asset(
+                            teamLogo.Team(teamAbbrev: game.awayTeam).getLogoURL(),
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          game.awayTeam,
+                          style: BodyTextStyle.bodyTextStyleBold,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          '@',
+                          style: BodyTextStyle.bodyTextStyleReg,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          game.homeTeam,
+                          style: BodyTextStyle.bodyTextStyleBold,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Image.asset(
+                            teamLogo.Team(teamAbbrev: game.homeTeam).getLogoURL(),
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      '$formattedTime',
+                      style: BodyTextStyle.bodyTextStyleReg,
+                    ),
+                    SizedBox(height: 16),
+                  ],
                 );
               }).toList(),
             ),
