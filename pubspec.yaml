@@ -45,6 +45,13 @@ flutter:
     - family: Rowdies-Light
       fonts:
         - asset: assets/fonts/Rowdies-Light.ttf
+    - family: Inter-Regular
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: Inter-Regular
+      fonts:
+      - asset:
+          assets/fonts/Inter-Bold.ttf
 
   assets:
     - assets/images/backdrop.gif
