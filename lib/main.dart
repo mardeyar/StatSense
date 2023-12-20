@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
               label: 'Schedule',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.score),
+              icon: Icon(Icons.stream),
               label: 'Streamer Scores',
             ),
             BottomNavigationBarItem(
