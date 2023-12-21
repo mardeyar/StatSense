@@ -98,65 +98,90 @@ class _ScheduleState extends State<Schedule> {
         final GameDate gameDay = gameDates[index];
         final formattedDate = _formatDate(gameDay.date);
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ListTile(
-              title: Center( // Wrapping with Center widget to center the date
+              title: Center(
                 child: Text(
-                  '$formattedDate | ${gameDay.numberOfGames} games on tonight',
+                  '$formattedDate\n${gameDay.numberOfGames} games on tonight',
                   style: BodyTextStyle.bodyTextStyleBold,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: gameDay.gameList.map((game) {
                 final formattedTime = _formatTime(game.date);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Image.asset(
-                            teamLogo.Team(teamAbbrev: game.awayTeam).getLogoURL(),
-                            height: 40,
-                            width: 40,
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xFF31596C), Color(0xFF282828), Color(0xFF31596C)],
                         ),
-                        SizedBox(width: 8),
-                        Text(
-                          game.awayTeam,
-                          style: BodyTextStyle.bodyTextStyleBold,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                  child: Image.asset(
+                                    teamLogo.Team(teamAbbrev: game.awayTeam).getLogoURL(),
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      game.awayTeam,
+                                      style: BodyTextStyle.bodyTextStyleBold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 15),
+                                Text(
+                                  'vs',
+                                  style: BodyTextStyle.bodyTextStyleBold,
+                                ),
+                                SizedBox(width: 15),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      game.homeTeam,
+                                      style: BodyTextStyle.bodyTextStyleBold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                  child: Image.asset(
+                                    teamLogo.Team(teamAbbrev: game.homeTeam).getLogoURL(),
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '$formattedTime',
+                              style: BodyTextStyle.bodyTextStyleReg,
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 8),
-                        Text(
-                          '@',
-                          style: BodyTextStyle.bodyTextStyleReg,
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          game.homeTeam,
-                          style: BodyTextStyle.bodyTextStyleBold,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Image.asset(
-                            teamLogo.Team(teamAbbrev: game.homeTeam).getLogoURL(),
-                            height: 40,
-                            width: 40,
-                          ),
-                        ),
-                      ],
+                      ),
+
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      '$formattedTime',
-                      style: BodyTextStyle.bodyTextStyleReg,
-                    ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 10),
                   ],
                 );
               }).toList(),
