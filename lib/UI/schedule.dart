@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nhl/managers/team_manager.dart';
 import '../managers/game_manager.dart';
 import '../model/games.dart';
 import '../utils/styles.dart';
-import '../model/standings.dart' as teamLogo;
+import '../model/team.dart';
 
 class Schedule extends StatefulWidget {
   const Schedule({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class Schedule extends StatefulWidget {
 
 class _ScheduleState extends State<Schedule> {
   final GameManager scheduleView = GameManager();
+  final TeamManager teamManager = TeamManager();
   late int _selectedDayIndex;
 
   @override
@@ -109,82 +111,86 @@ class _ScheduleState extends State<Schedule> {
                 ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: gameDay.gameList.map((game) {
-                final formattedTime = _formatTime(game.date);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [Color(0xFF31596C), Color(0xFF282828), Color(0xFF31596C)],
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: gameDay.gameList.map((game) {
+                  final formattedTime = _formatTime(game.date);
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Color(0xFF31596C), Color(0xFF282828), Color(0xFF31596C)],
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                                  child: Image.asset(
-                                    teamLogo.Team(teamAbbrev: game.awayTeam).getLogoURL(),
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      game.awayTeam,
-                                      style: BodyTextStyle.bodyTextStyleBold,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                    child: Image.asset(
+                                      Team(teamAbbrev: game.awayTeam).getLogoURL(),
+                                      height: 50,
+                                      width: 50,
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: 15),
-                                Text(
-                                  'vs',
-                                  style: BodyTextStyle.bodyTextStyleBold,
-                                ),
-                                SizedBox(width: 15),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      game.homeTeam,
-                                      style: BodyTextStyle.bodyTextStyleBold,
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        game.awayTeam,
+                                        style: BodyTextStyle.bodyTextStyleBold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0),
-                                  child: Image.asset(
-                                    teamLogo.Team(teamAbbrev: game.homeTeam).getLogoURL(),
-                                    height: 50,
-                                    width: 50,
+                                  SizedBox(width: 15),
+                                  Text(
+                                    'vs',
+                                    style: BodyTextStyle.bodyTextStyleBold,
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              '$formattedTime',
-                              style: BodyTextStyle.bodyTextStyleReg,
-                            ),
-                          ],
+                                  SizedBox(width: 15),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        game.homeTeam,
+                                        style: BodyTextStyle.bodyTextStyleBold,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                                    child: Image.asset(
+                                      Team(teamAbbrev: game.homeTeam).getLogoURL(),
+                                      height: 50,
+                                      width: 50,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                '$formattedTime',
+                                style: BodyTextStyle.bodyTextStyleReg,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
 
-                    ),
-                    SizedBox(height: 10),
-                  ],
-                );
-              }).toList(),
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  );
+                }).toList(),
+              ),
             ),
           ],
         );
