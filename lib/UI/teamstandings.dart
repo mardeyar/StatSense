@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nhl/UI/teamdetails.dart';
-import '../managers/standings_manager.dart';
-import '../model/standings.dart';
+import '../managers/team_manager.dart';
+import '../model/team.dart';
 
 class TeamStandings extends StatefulWidget {
   const TeamStandings({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class TeamStandings extends StatefulWidget {
 }
 
 class _TeamStandingsState extends State<TeamStandings> {
-  final StandingsManager teamView = StandingsManager();
+  final teamView = TeamManager();
 
   @override
   void initState() {
@@ -78,7 +78,20 @@ class _TeamStandingsState extends State<TeamStandings> {
                     width: 40,
                   ),
                   SizedBox(width: 8),
-                  Text(team.teamName),
+                  Text(
+                    team.teamName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Text(
+                        teamView.getTrendingAnalysis(team),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
