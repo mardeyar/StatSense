@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../model/standings.dart';
+import '../managers/game_manager.dart';
+import '../model/team.dart';
 import '../model/players.dart';
 
 class StandingsManager {
@@ -58,7 +59,7 @@ class StandingsManager {
             );
 
             await team.fetchRoster();
-
+            GameManager().calculateStreamScores();
             return team;
           }),
       );
