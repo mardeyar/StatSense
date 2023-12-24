@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nhl/managers/team_manager.dart';
 import '../managers/game_manager.dart';
 import '../model/games.dart';
+import '../model/team.dart';
 
 class StreamerScore extends StatefulWidget {
   const StreamerScore({Key? key}) : super(key: key);
