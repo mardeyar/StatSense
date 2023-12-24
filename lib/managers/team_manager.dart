@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../managers/game_manager.dart';
 import '../model/team.dart';
 import '../model/players.dart';
 
-class StandingsManager {
+class TeamManager {
   List<Team> teamList = [];
   List<Player> playerList = [];
 
   Future<void> fetchTeams() async {
-
     // Fetch the teams data from the NHL API
     final teamResponse = await http.get(
       Uri.parse('https://api-web.nhle.com/v1/standings/now'),
@@ -58,8 +56,7 @@ class StandingsManager {
               streakCount: teamData['streakCount'],
             );
 
-            await team.fetchRoster();
-            GameManager().calculateStreamScores();
+            await fetchRoster(team);
             return team;
           }),
       );
@@ -67,99 +64,54 @@ class StandingsManager {
       throw Exception('Failed to load NHL teams data...');
     }
   }
-  
-  // This method will make API calls to the endpoint and fetch player details
-  Future<Player> fetchPlayerDetails(int playerId) async {
+
+  // Method to extract the playerID and add to the roster list
+  Future<void> fetchRoster(Team team) async {
     final playerResponse = await http.get(
-      Uri.parse('https://api-web.nhle.com/v1/player/$playerId/landing')
+        Uri.parse('https://api-web.nhle.com/v1/roster/${team.teamAbbrev}/current')
     );
 
     if (playerResponse.statusCode == 200) {
-      final Map<String, dynamic> playerData = json.decode(playerResponse.body);
+      final Map<String, dynamic> responseData = json.decode(playerResponse.body);
+      final List<dynamic> forwards = responseData['forwards'];
+      final List<dynamic> defensemen = responseData['defensemen'];
 
-      // Extract the players last 5 game totals, initialize to 0
-      List<dynamic> last5Games = playerData['last5Games'];
-      num last5Goals = 0;
-      num last5Assists = 0;
-      num last5Pts = 0;
-      num last5PlusMinus = 0;
-      num last5PPG = 0;
-      num last5Shots = 0;
-      num last5PIM = 0;
-
-      for (var game in last5Games) {
-        last5Goals += game['goals'];
-        last5Assists += game['assists'];
-        last5Pts += game['points'];
-        last5PlusMinus += game['plusMinus'];
-        last5PPG += game['powerPlayGoals'];
-        last5Shots += game['shots'];
-        last5PIM += game['pim'];
+      // Loop through to add all these playerID into the roster list
+      for (var player in [...forwards, ...defensemen]) {
+        team.roster.add(player['id']);
       }
-
-      // Create a player object with that data
-      Player player = Player(
-        playerID: playerData['playerId'],
-        firstName: playerData['firstName']['default'],
-        lastName: playerData['lastName']['default'],
-        last5Goals: last5Goals,
-        last5Assists: last5Assists,
-        last5Pts: last5Pts,
-        last5PlusMinus: last5PlusMinus,
-        last5PPG: last5PPG,
-        last5Shots: last5Shots,
-        last5PIM: last5PIM,
-      );
-
-      // Add the newly created player to playerList
-      playerList.add(player);
-
-      // Calculate the top 5 performers on each team
-      player.performanceScore = calculatePerformanceScore(player);
-
-      return player;
     } else {
-      throw Exception('Error: failed to load player data...');
+      throw Exception('Error: failed to load playerIDs for ${team.teamName}');
     }
   }
 
-  // Fetches the top performing players
-  Future<List<Player>> fetchTopPlayers(Team team) async {
-    List<Player> topPlayers = [];
-
-    // Need to iterate through the players to fetch top performers details
-    for (int playerId in team.roster) {
-      try {
-        Player player = await fetchPlayerDetails(playerId);
-        topPlayers.add(player);
-      } catch (e) {
-        print('Error: $e');
-      }
-
+  // String method to show a quick summary of the teams recent performance
+  String getTrendingAnalysis(Team team) {
+    if (team.last10Points >= 0 && team.last10Points <= 7) {
+      return "The ${team.teamName} have been a bit cold recently, mustering just "
+          "${team.last10Points} points in their past 10 games and a ${team.last10Wins} - "
+          "${team.last10Losses} - ${team.last10OTL} record.";
+    } else if (team.last10Points >= 8 && team.last10Points <= 13) {
+      return "The ${team.teamName} have been playing some good hockey, gaining ${team.last10Points} "
+          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+    } else if (team.last10Points >= 14 && team.last10Points <= 20) {
+      return "The ${team.teamName} have been running hot lately, getting points in "
+          "(${team.last10Wins} + ${team.last10OTL}) of their last 10 games, good for ${team.last10Points} "
+          "points. They have a ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL} "
+          "record in their last 10.";
+    } else {
+      return "The program broke, this text should never have been shown";
     }
-
-    topPlayers.sort((playerA, playerB) => playerB.performanceScore.compareTo(playerA.performanceScore));
-
-    return topPlayers.length > 5 ? topPlayers.sublist(0, 5) : topPlayers;
   }
 
-  double calculatePerformanceScore(Player player) {
-    // Define the weighted criteria for each player stat
-    final double goalWeight = 1.8;
-    final double assistWeight = 1.3;
-    final double plusMinusWeight = 1;
-    final double ppgWeight = 1.2;
-    final double sogWeight = 0.5;
-    final double pimWeight = 1;
+  void calculateStreamScores(Map<String, Team> teamMap) {
+    for (final team in teamMap.values) {
+      final offDaysWeight = team.offDays * 0.10;
+      final gameWeight = team.totalGames * 0.15;
 
-    // Calculate the performanceScore for each player based on that
-    double playerScore = (player.last5Goals * goalWeight) +
-        (player.last5Assists * assistWeight) +
-        (player.last5PlusMinus * plusMinusWeight) +
-        (player.last5PPG * ppgWeight) +
-        (player.last5Shots * sogWeight) +
-        (player.last5PIM * pimWeight);
-
-    return playerScore;
+      // Can probably tweak this method of weighting the streamerScore
+      final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
+      team.streamerScore = weightedScore;
+    }
   }
 }
