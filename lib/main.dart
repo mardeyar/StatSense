@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nhl/managers/game_manager.dart';
 import '../UI/teamstandings.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
@@ -45,15 +46,15 @@ class _MyAppState extends State<MyApp> {
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.sports_hockey),
+              icon: Icon(Icons.calendar_month),
               label: 'Schedule',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.stream),
+              icon: Icon(Icons.calculate),
               label: 'Streamer Scores',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.query_stats),
+              icon: Icon(Icons.sports_hockey),
               label: 'Team Stats',
             ),
             BottomNavigationBarItem(
