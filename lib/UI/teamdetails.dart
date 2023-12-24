@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/managers/standings_manager.dart';
+import 'package:nhl/managers/player_manager.dart';
+import 'package:nhl/managers/team_manager.dart';
 import '../model/players.dart';
-import '../model/standings.dart';
+import '../model/team.dart';
 
 class TeamDetails extends StatelessWidget {
   final Team team;
+  final TeamManager teamManager = TeamManager();
 
-  const TeamDetails({Key? key, required this.team}) : super(key: key);
+  TeamDetails({Key? key, required this.team}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final standingsManager = StandingsManager();
+    final playerManager = PlayerManager(teamManager);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -40,9 +42,10 @@ class TeamDetails extends StatelessWidget {
             Text('Goals For: ${team.goalsFor}', style: TextStyle(color: Colors.white)),
             Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),
             Text('Streak: ${team.streakCount}${team.streakCode}', style: TextStyle(color: Colors.white)),
+            Text('${team.roster}', style: TextStyle(color: Colors.lightGreen)),
             Text('${team.teamAbbrev} Trending Players Last 5 Games', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
             FutureBuilder<List<Player>>(
-              future: standingsManager.fetchTopPlayers(team),
+              future: playerManager.fetchTopPlayers(team),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
