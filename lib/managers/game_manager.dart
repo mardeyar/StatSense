@@ -1,7 +1,9 @@
 import 'package:http/http.dart' as http;
+import 'package:nhl/managers/team_manager.dart';
 import 'dart:convert';
 
 import '../model/games.dart';
+import '../model/team.dart';
 import '../utils/date_utils.dart';
 
 class GameManager {
@@ -37,8 +39,8 @@ class GameManager {
             homeTeam: game['homeTeam']['abbrev'],
           ));
 
-          updateTeamData(game['awayTeam']['abbrev'], offDay);
-          updateTeamData(game['homeTeam']['abbrev'], offDay);
+          setTeamScheduleValues(game['awayTeam']['abbrev'], offDay);
+          setTeamScheduleValues(game['homeTeam']['abbrev'], offDay);
         }
 
         // Creates a gameDate object for each day, storing the data in a gameList
@@ -50,14 +52,14 @@ class GameManager {
         );
       }).toList();
 
-      // Count how many 'offDays' for the teams
-      countOffDays();
+      // Set the offDays attribute for the team object
+      setTeamOffDays();
     } else {
       throw Exception('Failed to load NHL Game data.');
     }
   }
 
-  void updateTeamData(String teamAbbrev, bool offDay) {
+  void setTeamScheduleValues(String teamAbbrev, bool offDay) {
     if (!teamMap.containsKey(teamAbbrev)) {
       teamMap[teamAbbrev] = Team(
         teamName: teamAbbrev,
@@ -73,7 +75,7 @@ class GameManager {
     }
   }
 
-  void countOffDays() {
+  void setTeamOffDays() {
     final Map<String, int> gamesPerDay = {};
     for (final date in gameDates) {
       gamesPerDay[date.date] = date.numberOfGames;
@@ -94,17 +96,17 @@ class GameManager {
         }
       }
     }
-    calculateStreamScores();
+    //calculateStreamScores();
   }
 
-  void calculateStreamScores() {
-    for (final team in teamMap.values) {
-      final offDaysWeight = team.offDays * 0.10;
-      final gameWeight = team.totalGames * 0.15;
-
-      // Can probably tweak this method of weighting the streamerScore
-      final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
-      team.streamerScore = weightedScore;
-    }
-  }
+  // void calculateStreamScores() {
+  //   for (final team in teamMap.values) {
+  //     final offDaysWeight = team.offDays * 0.10;
+  //     final gameWeight = team.totalGames * 0.15;
+  //
+  //     // Can probably tweak this method of weighting the streamerScore
+  //     final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
+  //     team.streamerScore = weightedScore;
+  //   }
+  // }
 }
