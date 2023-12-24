@@ -9,7 +9,6 @@ class Player {
   final num last5PPG;
   final num last5Shots;
   final num last5PIM;
-
   double _performanceScore = 0;
 
   Player ({
