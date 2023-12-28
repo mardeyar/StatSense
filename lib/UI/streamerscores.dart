@@ -28,11 +28,11 @@ class _StreamerScoreState extends State<StreamerScore> {
         backgroundColor: AppBarStyle.appBarBackground,
       ),
       body: FutureBuilder(
-        future: appFunction.fetchGameData(),
+        future: appFunction.readData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: LinearProgressIndicator(),
+              child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
             return const Center(
@@ -84,5 +84,4 @@ class _StreamerScoreState extends State<StreamerScore> {
       },
     );
   }
-
 }
