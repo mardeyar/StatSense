@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/managers/team_manager.dart';
-import '../managers/game_manager.dart';
-import '../model/games.dart';
+import 'package:nhl/utils/styles.dart';
+import '../managers/function_manager.dart';
 import '../model/team.dart';
 
 class StreamerScore extends StatefulWidget {
@@ -12,7 +11,7 @@ class StreamerScore extends StatefulWidget {
 }
 
 class _StreamerScoreState extends State<StreamerScore> {
-  final GameManager streamerView = GameManager();
+  final FunctionManager appFunction = FunctionManager();
 
   @override
   void initState() {
@@ -23,21 +22,24 @@ class _StreamerScoreState extends State<StreamerScore> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Streamer Scores'),
+        title: Text('Streamer Scores',
+        style: AppBarStyle.appBarText,
+        ),
+        backgroundColor: AppBarStyle.appBarBackground,
       ),
       body: FutureBuilder(
-        future: streamerView.fetchGameData(),
+        future: appFunction.fetchGameData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: LinearProgressIndicator(),
             );
           } else if (snapshot.hasError) {
             return const Center(
               child: Text('Error: Could not fetch streamer score data...'),
             );
           } else {
-            return buildStreamerScores(streamerView.teamMap);
+            return buildStreamerScores(appFunction.teamMap);
           }
         },
       ),
@@ -46,23 +48,41 @@ class _StreamerScoreState extends State<StreamerScore> {
 
   Widget buildStreamerScores(Map<String, Team> teamMap) {
     final teamsByScore = teamMap.values.toList()
-        ..sort((a, b) => b.streamerScore.compareTo(a.streamerScore));
+      ..sort((a, b) => b.streamerScore.compareTo(a.streamerScore));
 
     return ListView.builder(
       itemCount: teamsByScore.length,
       itemBuilder: (context, index) {
         final Team team = teamsByScore[index];
-        return ListTile(
-          title: Text(
-            '${team.teamName}: This Week Streamer Score - ${team.streamerScore.toStringAsFixed(2)}',
-            style: TextStyle(color: Colors.white),
-          ),
-          subtitle: Text(
-            'Total Games Player: ${team.totalGames}\nTotal Off Days: ${team.offDays}',
-            style: TextStyle(color: Colors.white),
+
+        return Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: ListTile(
+                title: Text(
+                  '${team.teamName}: ${team.streamerScore.toStringAsFixed(2)}',
+                  style: BodyTextStyle.bodyTextStyleBold,
+                ),
+                subtitle: Text(
+                  'Games: ${team.totalGames}\nOff Days: ${team.offDays}',
+                  style: BodyTextStyle.bodyTextStyleReg,
+                ),
+              ),
+            ),
           ),
         );
       },
     );
   }
+
 }
