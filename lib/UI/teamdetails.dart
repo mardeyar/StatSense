@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/managers/player_manager.dart';
 import 'package:nhl/managers/team_manager.dart';
-import '../model/players.dart';
+import '../managers/function_manager.dart';
 import '../model/team.dart';
 
 class TeamDetails extends StatelessWidget {
   final Team team;
-  final TeamManager teamManager = TeamManager();
+  final FunctionManager appFunction = FunctionManager();
 
   TeamDetails({Key? key, required this.team}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final playerManager = PlayerManager(teamManager);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -42,36 +40,8 @@ class TeamDetails extends StatelessWidget {
             Text('Goals For: ${team.goalsFor}', style: TextStyle(color: Colors.white)),
             Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),
             Text('Streak: ${team.streakCount}${team.streakCode}', style: TextStyle(color: Colors.white)),
+            Text('Points: ${team.last10Points}', style: TextStyle(color: Colors.white)),
             Text('${team.roster}', style: TextStyle(color: Colors.lightGreen)),
-            Text('${team.teamAbbrev} Trending Players Last 5 Games', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            FutureBuilder<List<Player>>(
-              future: playerManager.fetchTopPlayers(team),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error.toString()}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
-                } else if (snapshot.hasData) {
-                  final topPlayers = snapshot.data!;
-                  return Column(
-                    children: topPlayers.map((player) {
-                      return ListTile(
-                        title: Text('${player.firstName} ${player.lastName}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        subtitle: Text('Goals: ${player.last5Goals}\n'
-                            'Assists: ${player.last5Assists}\n'
-                            '+/-:  ${player.last5PlusMinus}\n'
-                            'PPG: ${player.last5PPG}\n'
-                            'SOG: ${player.last5Shots}\n'
-                            'PIM: ${player.last5PIM}', style: TextStyle(color: Colors.white)
-                        ),
-                      );
-                    }).toList(),
-                  );
-                } else {
-                  return Text('No data available.', style: TextStyle(color: Colors.white));
-                }
-              },
-            )
           ],
         ),
       ),
