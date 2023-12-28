@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/managers/team_manager.dart';
 import '../managers/function_manager.dart';
 import '../model/team.dart';
 
@@ -41,7 +40,6 @@ class TeamDetails extends StatelessWidget {
             Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),
             Text('Streak: ${team.streakCount}${team.streakCode}', style: TextStyle(color: Colors.white)),
             Text('Points: ${team.last10Points}', style: TextStyle(color: Colors.white)),
-            Text('${team.roster}', style: TextStyle(color: Colors.lightGreen)),
           ],
         ),
       ),
