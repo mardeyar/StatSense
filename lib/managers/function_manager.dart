@@ -10,7 +10,6 @@ import '../utils/date_utils.dart';
 class FunctionManager {
   late List<GameDate> gameDates = [];
   late Map<String, Team> teamMap = {};
-  List<Team> teamList = [];
 
   // Write the game/team data to a json file for quicker app speed, saves network requests
   Future<void> writeData() async {
@@ -33,7 +32,6 @@ class FunctionManager {
       final file = File('${dir.path}/data/appdata.json');
 
       await file.writeAsString(jsonData);
-      print('Success for ME');
     } catch (e) {
       print('Error: $e');
     }
@@ -46,7 +44,8 @@ class FunctionManager {
 
       if (await file.exists()) {
         final jsonData = await file.readAsString();
-        final decodeData = json.decode(jsonData);
+        // With decoding, need to use UTF-8 specifically for Montréal Canadiens because of the 'é'
+        final decodeData = json.decode(utf8.decode(jsonData.codeUnits));
 
         // Update gameDates & teamMap with decoded json data
         gameDates = (decodeData['gameDates'] as List)
