@@ -7,12 +7,6 @@ class Team {
   int goalDiff;
   int goalsAgainst;
   int goalsFor;
-  int homeGoalDiff;
-  int homeGoalsAgainst;
-  int homeGoalsFor;
-  int homeLosses;
-  int homeWins;
-  int homeOTL;
   int last10GoalDiff;
   int last10GoalsFor;
   int last10GoalsAgainst;
@@ -23,12 +17,6 @@ class Team {
   int totalLosses;
   int totalWins;
   int totalOTL;
-  int roadGoalDiff;
-  int roadGoalsAgainst;
-  int roadGoalsFor;
-  int roadLosses;
-  int roadWins;
-  int roadOTL;
   String streakCode;
   int streakCount;
   List<String> gameDates = [];
@@ -36,7 +24,6 @@ class Team {
   double streamerScore;
   int totalGames;
   int offDays;
-
 
   /*
   * Don't want to be required to use each and every one of these parameters
@@ -52,12 +39,6 @@ class Team {
     this.goalDiff = 0,
     this.goalsAgainst = 0,
     this.goalsFor = 0,
-    this.homeGoalDiff = 0,
-    this.homeGoalsAgainst = 0,
-    this.homeGoalsFor = 0,
-    this.homeLosses = 0,
-    this.homeWins = 0,
-    this.homeOTL = 0,
     this.last10GoalDiff = 0,
     this.last10GoalsFor = 0,
     this.last10GoalsAgainst = 0,
@@ -68,12 +49,6 @@ class Team {
     this.totalLosses = 0,
     this.totalWins = 0,
     this.totalOTL = 0,
-    this.roadGoalDiff = 0,
-    this.roadGoalsAgainst = 0,
-    this.roadGoalsFor = 0,
-    this.roadLosses = 0,
-    this.roadWins = 0,
-    this.roadOTL = 0,
     this.streakCode = '',
     this.streakCount = 0,
     this.trendScore = 0.0,
@@ -98,12 +73,6 @@ class Team {
       'goalDiff': goalDiff,
       'goalsAgainst': goalsAgainst,
       'goalsFor': goalsFor,
-      'homeGoalDiff': homeGoalDiff,
-      'homeGoalsAgainst': homeGoalsAgainst,
-      'homeGoalsFor': homeGoalsFor,
-      'homeLosses': homeLosses,
-      'homeWins': homeWins,
-      'homeOTL': homeOTL,
       'last10GoalDiff': last10GoalDiff,
       'last10GoalsFor': last10GoalsFor,
       'last10GoalsAgainst': last10GoalsAgainst,
@@ -114,12 +83,6 @@ class Team {
       'totalLosses': totalLosses,
       'totalWins': totalWins,
       'totalOTL': totalOTL,
-      'roadGoalDiff': roadGoalDiff,
-      'roadGoalsAgainst': roadGoalsAgainst,
-      'roadGoalsFor': roadGoalsFor,
-      'roadLosses': roadLosses,
-      'roadWins': roadWins,
-      'roadOTL': roadOTL,
       'streakCode': streakCode,
       'streakCount': streakCount,
       'gameDates': gameDates,
@@ -140,12 +103,6 @@ class Team {
       goalDiff: json['goalDiff'],
       goalsAgainst: json['goalsAgainst'],
       goalsFor: json['goalsFor'],
-      homeGoalDiff: json['homeGoalDiff'],
-      homeGoalsAgainst: json['homeGoalsAgainst'],
-      homeGoalsFor: json['homeGoalsFor'],
-      homeLosses: json['homeLosses'],
-      homeWins: json['homeWins'],
-      homeOTL: json['homeOTL'],
       last10GoalDiff: json['last10GoalDiff'],
       last10GoalsFor: json['last10GoalsFor'],
       last10GoalsAgainst: json['last10GoalsAgainst'],
@@ -156,12 +113,6 @@ class Team {
       totalLosses: json['totalLosses'],
       totalWins: json['totalWins'],
       totalOTL: json['totalOTL'],
-      roadGoalDiff: json['roadGoalDiff'],
-      roadGoalsAgainst: json['roadGoalsAgainst'],
-      roadGoalsFor: json['roadGoalsFor'],
-      roadLosses: json['roadLosses'],
-      roadWins: json['roadWins'],
-      roadOTL: json['roadOTL'],
       streakCode: json['streakCode'],
       streakCount: json['streakCount'],
       gameDates: List<String>.from(json['gameDates']),

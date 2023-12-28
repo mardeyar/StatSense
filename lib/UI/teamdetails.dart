@@ -33,8 +33,6 @@ class TeamDetails extends StatelessWidget {
             Text('Conference: ${team.conference}', style: TextStyle(color: Colors.white)),
             Text('Division: ${team.division}', style: TextStyle(color: Colors.white)),
             Text('Season Record: ${team.totalWins} - ${team.totalLosses} - ${team.totalOTL}', style: TextStyle(color: Colors.white)),
-            Text('Home Record: ${team.homeWins} - ${team.homeLosses} - ${team.homeOTL}', style: TextStyle(color: Colors.white)),
-            Text('Away Record: ${team.roadWins} - ${team.roadLosses} - ${team.roadOTL}', style: TextStyle(color: Colors.white)),
             Text('Last 10 Record: ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}', style: TextStyle(color: Colors.white)),
             Text('Goals For: ${team.goalsFor}', style: TextStyle(color: Colors.white)),
             Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),

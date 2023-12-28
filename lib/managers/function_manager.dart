@@ -178,12 +178,6 @@ class FunctionManager {
           team.goalDiff = teamData['goalDifferential'];
           team.goalsAgainst = teamData['goalAgainst'];
           team.goalsFor = teamData['goalFor'];
-          team.homeGoalDiff = teamData['homeGoalDifferential'];
-          team.homeGoalsAgainst = teamData['homeGoalsAgainst'];
-          team.homeGoalsFor = teamData['homeGoalsFor'];
-          team.homeLosses = teamData['homeLosses'];
-          team.homeWins = teamData['homeWins'];
-          team.homeOTL = teamData['homeOtLosses'];
           team.last10GoalDiff = teamData['l10GoalDifferential'];
           team.last10GoalsFor = teamData['l10GoalsFor'];
           team.last10GoalsAgainst = teamData['l10GoalsAgainst'];
@@ -194,12 +188,6 @@ class FunctionManager {
           team.totalLosses = teamData['losses'];
           team.totalWins = teamData['wins'];
           team.totalOTL = teamData['otLosses'];
-          team.roadGoalDiff = teamData['roadGoalDifferential'];
-          team.roadGoalsAgainst = teamData['roadGoalsAgainst'];
-          team.roadGoalsFor = teamData['roadGoalsFor'];
-          team.roadLosses = teamData['roadLosses'];
-          team.roadWins = teamData['roadWins'];
-          team.roadOTL = teamData['roadOtLosses'];
           team.streakCode = teamData['streakCode'];
           team.streakCount = teamData['streakCount'];
         }
