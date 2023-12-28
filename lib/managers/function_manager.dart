@@ -1,5 +1,7 @@
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
+import 'dart:io';
 
 import '../model/games.dart';
 import '../model/team.dart';
@@ -9,6 +11,58 @@ class FunctionManager {
   late List<GameDate> gameDates = [];
   late Map<String, Team> teamMap = {};
   List<Team> teamList = [];
+
+  // Write the game/team data to a json file for quicker app speed, saves network requests
+  Future<void> writeData() async {
+    await fetchGameData();
+    await fetchTeams();
+
+    final gameJson = gameDates.map((gameDate) => gameDate.toJson()).toList();
+    final teamJson = teamMap.map((key, value) => MapEntry(key, value.toJson()));
+
+    // Map to represent data saved to file
+    final savedData = {
+      'gameDates': gameJson,
+      'teamMap': teamJson,
+    };
+
+    final jsonData = jsonEncode(savedData);
+
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/data/appdata.json');
+
+      await file.writeAsString(jsonData);
+      print('Success for ME');
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> readData() async {
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/data/appdata.json');
+
+      if (await file.exists()) {
+        final jsonData = await file.readAsString();
+        final decodeData = json.decode(jsonData);
+
+        // Update gameDates & teamMap with decoded json data
+        gameDates = (decodeData['gameDates'] as List)
+            .map((gameJson) => GameDate.fromJson(gameJson))
+            .toList();
+
+        final Map<String, dynamic> decodedMap = decodeData['teamMap'] as Map<String, dynamic>;
+        teamMap = decodedMap.map((key, value) => MapEntry(key, Team.fromJson(value)),
+        );
+      } else {
+        print('File does not exist');
+      }
+    } catch (e) {
+      print('Error reading: $e');
+    }
+  }
 
   // This method retrieves all game data for specified week
   Future<void> fetchGameData() async {
@@ -52,7 +106,8 @@ class FunctionManager {
         );
       }).toList();
 
-      // Set the offDays attribute for the team object
+      // Get the rest of the attributes needed to make up a team object
+      // This is a hacky way, I'm sure there's a better way
       await fetchTeams();
       setTeamOffDays();
       calculateStreamScores();
@@ -148,8 +203,6 @@ class FunctionManager {
           team.roadOTL = teamData['roadOtLosses'];
           team.streakCode = teamData['streakCode'];
           team.streakCount = teamData['streakCount'];
-
-          print('Team exists ${team.teamName} with latest data');
         }
       }
     } else {
@@ -185,7 +238,6 @@ class FunctionManager {
       // Can probably tweak this method of weighting the streamerScore
       final weightedScore = (gameWeight + offDaysWeight) * team.offDays;
       team.streamerScore = weightedScore + trendScore;
-      print('stream ${team.teamName}: ${team.last10Points}');
     }
   }
 }
