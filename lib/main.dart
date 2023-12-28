@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> appPages = [
     const Schedule(),
     const StreamerScore(),
-    const TeamStandings(),
+    //const TeamStandings(),
     Settings(),
   ];
 
@@ -53,10 +53,10 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.calculate),
               label: 'Streamer Scores',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.sports_hockey),
-              label: 'Team Stats',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.sports_hockey),
+            //   label: 'Team Stats',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
