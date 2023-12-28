@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:nhl/managers/team_manager.dart';
-import '../managers/game_manager.dart';
+import '../managers/function_manager.dart';
 import '../model/games.dart';
 import '../utils/styles.dart';
 import '../model/team.dart';
@@ -14,8 +13,7 @@ class Schedule extends StatefulWidget {
 }
 
 class _ScheduleState extends State<Schedule> {
-  final GameManager scheduleView = GameManager();
-  final TeamManager teamManager = TeamManager();
+  final FunctionManager appFunction = FunctionManager();
   late int _selectedDayIndex;
 
   @override
@@ -38,11 +36,11 @@ class _ScheduleState extends State<Schedule> {
           _buildDaySelectRow(),
           Expanded(
             child: FutureBuilder(
-              future: scheduleView.fetchGameData(),
+              future: appFunction.fetchGameData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: LinearProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
                   return const Center(
@@ -50,7 +48,7 @@ class _ScheduleState extends State<Schedule> {
                   );
                 } else {
                   // Filter games based on the selected day
-                  final List<GameDate> filteredGameDates = scheduleView.gameDates
+                  final List<GameDate> filteredGameDates = appFunction.gameDates
                       .where((gameDate) =>
                   DateTime.parse(gameDate.date).weekday == _selectedDayIndex + 1)
                       .toList();
@@ -126,7 +124,7 @@ class _ScheduleState extends State<Schedule> {
                           gradient: LinearGradient(
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
-                            colors: [Color(0xFF31596C), Color(0xFF282828), Color(0xFF31596C)],
+                            colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
                           ),
                         ),
                         child: Padding(
