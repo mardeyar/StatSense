@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/managers/game_manager.dart';
-import '../UI/teamstandings.dart';
+import 'package:nhl/managers/function_manager.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
 import '../UI/settings.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FunctionManager().writeData();
   runApp(MyApp());
 }
 
@@ -21,7 +22,6 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> appPages = [
     const Schedule(),
     const StreamerScore(),
-    //const TeamStandings(),
     Settings(),
   ];
 
@@ -34,12 +34,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Hides the "debug" corner label
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF1E1E1E)),
+      theme: ThemeData(scaffoldBackgroundColor: Color(0xFF1E1E1E)),
       home: Scaffold(
         body: appPages[_selectedNavIndex], // Will show the selected nav page
         bottomNavigationBar: BottomNavigationBar(
@@ -53,10 +52,6 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.calculate),
               label: 'Streamer Scores',
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.sports_hockey),
-            //   label: 'Team Stats',
-            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
