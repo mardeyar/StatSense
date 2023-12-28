@@ -31,7 +31,6 @@ class Team {
   int roadOTL;
   String streakCode;
   int streakCount;
-  List<int> roster = [];
   List<String> gameDates = [];
   double trendScore;
   double streamerScore;
@@ -87,5 +86,89 @@ class Team {
   // Generate a local URL to display team logos. This saves making a network request every time
   String getLogoURL() {
     return 'assets/images/team_logos/${teamAbbrev}.png';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'teamName': teamName,
+      'teamAbbrev': teamAbbrev,
+      'conference': conference,
+      'division': division,
+      'gamesPlayed': gamesPlayed,
+      'goalDiff': goalDiff,
+      'goalsAgainst': goalsAgainst,
+      'goalsFor': goalsFor,
+      'homeGoalDiff': homeGoalDiff,
+      'homeGoalsAgainst': homeGoalsAgainst,
+      'homeGoalsFor': homeGoalsFor,
+      'homeLosses': homeLosses,
+      'homeWins': homeWins,
+      'homeOTL': homeOTL,
+      'last10GoalDiff': last10GoalDiff,
+      'last10GoalsFor': last10GoalsFor,
+      'last10GoalsAgainst': last10GoalsAgainst,
+      'last10Losses': last10Losses,
+      'last10Wins': last10Wins,
+      'last10OTL': last10OTL,
+      'last10Points': last10Points,
+      'totalLosses': totalLosses,
+      'totalWins': totalWins,
+      'totalOTL': totalOTL,
+      'roadGoalDiff': roadGoalDiff,
+      'roadGoalsAgainst': roadGoalsAgainst,
+      'roadGoalsFor': roadGoalsFor,
+      'roadLosses': roadLosses,
+      'roadWins': roadWins,
+      'roadOTL': roadOTL,
+      'streakCode': streakCode,
+      'streakCount': streakCount,
+      'gameDates': gameDates,
+      'trendScore': trendScore,
+      'streamerScore': streamerScore,
+      'totalGames': totalGames,
+      'offDays': offDays,
+    };
+  }
+
+  factory Team.fromJson(Map<String, dynamic> json) {
+    return Team(
+      teamName: json['teamName'],
+      teamAbbrev: json['teamAbbrev'],
+      conference: json['conference'],
+      division: json['division'],
+      gamesPlayed: json['gamesPlayed'],
+      goalDiff: json['goalDiff'],
+      goalsAgainst: json['goalsAgainst'],
+      goalsFor: json['goalsFor'],
+      homeGoalDiff: json['homeGoalDiff'],
+      homeGoalsAgainst: json['homeGoalsAgainst'],
+      homeGoalsFor: json['homeGoalsFor'],
+      homeLosses: json['homeLosses'],
+      homeWins: json['homeWins'],
+      homeOTL: json['homeOTL'],
+      last10GoalDiff: json['last10GoalDiff'],
+      last10GoalsFor: json['last10GoalsFor'],
+      last10GoalsAgainst: json['last10GoalsAgainst'],
+      last10Losses: json['last10Losses'],
+      last10Wins: json['last10Wins'],
+      last10OTL: json['last10OTL'],
+      last10Points: json['last10Points'],
+      totalLosses: json['totalLosses'],
+      totalWins: json['totalWins'],
+      totalOTL: json['totalOTL'],
+      roadGoalDiff: json['roadGoalDiff'],
+      roadGoalsAgainst: json['roadGoalsAgainst'],
+      roadGoalsFor: json['roadGoalsFor'],
+      roadLosses: json['roadLosses'],
+      roadWins: json['roadWins'],
+      roadOTL: json['roadOTL'],
+      streakCode: json['streakCode'],
+      streakCount: json['streakCount'],
+      gameDates: List<String>.from(json['gameDates']),
+      trendScore: json['trendScore'],
+      streamerScore: json['streamerScore'],
+      totalGames: json['totalGames'],
+      offDays: json['offDays'],
+    );
   }
 }
