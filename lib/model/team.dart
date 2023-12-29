@@ -20,7 +20,7 @@ class Team {
   String streakCode;
   int streakCount;
   List<String> gameDates = [];
-  double trendScore;
+  //double trendScore;
   double streamerScore;
   int totalGames;
   int offDays;
@@ -51,7 +51,6 @@ class Team {
     this.totalOTL = 0,
     this.streakCode = '',
     this.streakCount = 0,
-    this.trendScore = 0.0,
     this.streamerScore = 0.0,
     this.totalGames = 0,
     this.offDays = 0,
@@ -86,7 +85,7 @@ class Team {
       'streakCode': streakCode,
       'streakCount': streakCount,
       'gameDates': gameDates,
-      'trendScore': trendScore,
+      //'trendScore': trendScore,
       'streamerScore': streamerScore,
       'totalGames': totalGames,
       'offDays': offDays,
@@ -116,7 +115,7 @@ class Team {
       streakCode: json['streakCode'],
       streakCount: json['streakCount'],
       gameDates: List<String>.from(json['gameDates']),
-      trendScore: json['trendScore'],
+      //trendScore: json['trendScore'],
       streamerScore: json['streamerScore'],
       totalGames: json['totalGames'],
       offDays: json['offDays'],
