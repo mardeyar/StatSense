@@ -199,16 +199,22 @@ class FunctionManager {
 
   // String method to show a quick summary of the teams recent performance
   String getTrendingAnalysis(Team team) {
-    if (team.last10Points >= 0 && team.last10Points <= 7) {
-      return "The ${team.teamName} have been a bit cold recently, mustering just "
+    if (team.last10Points >= 0 && team.last10Points <= 3) {
+      return "The ${team.teamName} have been pretty bad recently, mustering just "
           "${team.last10Points} points in their past 10 games and a ${team.last10Wins} - "
           "${team.last10Losses} - ${team.last10OTL} record.";
-    } else if (team.last10Points >= 8 && team.last10Points <= 13) {
+    } else if (team.last10Points >= 4 && team.last10Points <= 7) {
+      return "The ${team.teamName} have been pretty cold of late, gaining only ${team.last10Points} "
+          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+    } else if (team.last10Points >= 8 && team.last10Points <= 11) {
+      return "The ${team.teamName} have been playing just okay; getting ${team.last10Points} "
+          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+    } else if (team.last10Points >= 12 && team.last10Points <= 15) {
       return "The ${team.teamName} have been playing some good hockey, gaining ${team.last10Points} "
           "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
-    } else if (team.last10Points >= 14 && team.last10Points <= 20) {
+    } else if (team.last10Points >= 16 && team.last10Points <= 20) {
       return "The ${team.teamName} have been running hot lately, getting points in "
-          "(${team.last10Wins} + ${team.last10OTL}) of their last 10 games, good for ${team.last10Points} "
+          "${team.last10Wins + team.last10OTL} of their last 10 games, good for ${team.last10Points} "
           "points. They have a ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL} "
           "record in their last 10.";
     } else {
@@ -216,17 +222,20 @@ class FunctionManager {
     }
   }
 
+  /*
+  * Formula to determine which teams are best to pick up players from
+  * Current method is a placeholder; it can use some refining. See Team class
+  * with method 'getTrendScore()' for further formula
+  */
   void calculateStreamScores() {
     for (final team in teamMap.values) {
-      final offDaysWeight = team.offDays * 1.5;
+      final offDaysWeight = team.offDays * 0.35;
       final gameWeight = team.totalGames * 0.75;
-      final trendScore = ((team.last10Points * 0.05) + (team.last10Wins * 0.05)
-      + (team.last10GoalDiff * 0.2) - (team.last10Losses * 0.02)) * 0.2;
-      print('$trendScore');
+      final trendScore = team.getTrendScore();
+      //print('${team.teamName}: $trendScore');
 
-      // Can probably tweak this method of weighting the streamerScore
-      final weightedScore = (gameWeight + offDaysWeight) * team.offDays;
-      team.streamerScore = weightedScore + trendScore;
+      final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
+      team.streamerScore = (weightedScore + trendScore) / 1.5;
     }
   }
 }
