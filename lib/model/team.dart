@@ -121,4 +121,15 @@ class Team {
       offDays: json['offDays'],
     );
   }
+
+  double getTrendScore() {
+    double wins = last10Wins.toDouble() * 0.05;
+    //double losses = last10Losses.toDouble() * 0.01;
+    double points = last10Points.toDouble() * 0.02;
+    double gf = (last10GoalsFor.toDouble() / 10) * 0.3;
+    double ga = (last10GoalsAgainst.toDouble() / 10) * 0.05;
+
+    double trendScore = (wins + points + gf) - ga;
+    return trendScore;
+  }
 }
