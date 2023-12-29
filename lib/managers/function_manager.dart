@@ -218,9 +218,11 @@ class FunctionManager {
 
   void calculateStreamScores() {
     for (final team in teamMap.values) {
-      final offDaysWeight = team.offDays * 0.2;
-      final gameWeight = team.totalGames * 0.15;
-      final trendScore = team.last10Points * .15;
+      final offDaysWeight = team.offDays * 1.5;
+      final gameWeight = team.totalGames * 0.75;
+      final trendScore = ((team.last10Points * 0.05) + (team.last10Wins * 0.05)
+      + (team.last10GoalDiff * 0.2) - (team.last10Losses * 0.02)) * 0.2;
+      print('$trendScore');
 
       // Can probably tweak this method of weighting the streamerScore
       final weightedScore = (gameWeight + offDaysWeight) * team.offDays;
