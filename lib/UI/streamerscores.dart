@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nhl/UI/teamdetails.dart';
 import 'package:nhl/utils/styles.dart';
 import '../managers/function_manager.dart';
 import '../model/team.dart';
@@ -54,28 +55,79 @@ class _StreamerScoreState extends State<StreamerScore> {
       itemCount: teamsByScore.length,
       itemBuilder: (context, index) {
         final Team team = teamsByScore[index];
-
-        return Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TeamDetails(team: team)
               ),
+            );
+          },
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: ListTile(
-                title: Text(
-                  '${team.teamName}: ${team.streamerScore.toStringAsFixed(2)}',
-                  style: BodyTextStyle.bodyTextStyleBold,
+            elevation: 2,
+            margin: EdgeInsets.all(10.0),
+            color: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
                 ),
-                subtitle: Text(
-                  'Games: ${team.totalGames}\nOff Days: ${team.offDays}',
-                  style: BodyTextStyle.bodyTextStyleReg,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Image.asset(
+                            team.getLogoURL(),
+                            height: 40,
+                            width: 40,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${team.teamName}',
+                              style: BodyTextStyle.bodyTextStyleBold,
+                            ),
+                            Text(
+                              '${team.streamerScore.toStringAsFixed(2)}',
+                              style: BodyTextStyle.bodyTextStyleReg,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Total Games: ${team.totalGames}',
+                      style: BodyTextStyle.bodyTextStyleReg,
+                    ),
+                    Text(
+                      'Off Day Games: ${team.offDays}',
+                      style: BodyTextStyle.bodyTextStyleReg,
+                    ),
+                    Text(
+                      'Summary: ${appFunction.getTrendingAnalysis(team)}',
+                      style: BodyTextStyle.bodyTextStyleReg,
+                    ),
+                  ],
                 ),
               ),
             ),
