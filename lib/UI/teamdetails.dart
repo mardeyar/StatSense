@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nhl/utils/styles.dart';
 import '../managers/function_manager.dart';
 import '../model/team.dart';
 
@@ -21,9 +22,13 @@ class TeamDetails extends StatelessWidget {
               width: 40,
             ),
             SizedBox(width: 8),
-            Text(team.teamName),
+            Text(
+              team.teamName,
+              style: AppBarStyle.appBarText,
+            ),
           ],
         ),
+        backgroundColor: AppBarStyle.appBarBackground,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
