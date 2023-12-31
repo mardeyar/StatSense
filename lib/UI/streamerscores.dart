@@ -107,7 +107,7 @@ class _StreamerScoreState extends State<StreamerScore> {
                               style: BodyTextStyle.bodyTextStyleBold,
                             ),
                             Text(
-                              '${team.streamerScore.toStringAsFixed(2)}',
+                              '${team.streamerScore.toStringAsFixed(2)}%',
                               style: BodyTextStyle.bodyTextStyleReg,
                             ),
                           ],
