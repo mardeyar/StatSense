@@ -207,7 +207,7 @@ class FunctionManager {
       return "The ${team.teamName} have been pretty cold of late, gaining only ${team.last10Points} "
           "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
     } else if (team.last10Points >= 8 && team.last10Points <= 11) {
-      return "The ${team.teamName} have been playing just okay; getting ${team.last10Points} "
+      return "The ${team.teamName} have been lukewarm, getting ${team.last10Points} "
           "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
     } else if (team.last10Points >= 12 && team.last10Points <= 15) {
       return "The ${team.teamName} have been playing some good hockey, gaining ${team.last10Points} "
@@ -229,13 +229,12 @@ class FunctionManager {
   */
   void calculateStreamScores() {
     for (final team in teamMap.values) {
-      final offDaysWeight = team.offDays * 0.35;
-      final gameWeight = team.totalGames * 0.75;
+      final offDaysWeight = team.offDays * 0.65;
+      final gameWeight = team.totalGames * 0.95;
       final trendScore = team.getTrendScore();
-      //print('${team.teamName}: $trendScore');
+      final pctScore = (offDaysWeight + gameWeight + trendScore) * 10;
 
-      final weightedScore = (gameWeight + offDaysWeight) * team.totalGames;
-      team.streamerScore = (weightedScore + trendScore) / 1.5;
+      team.streamerScore = pctScore * 1.3;
     }
   }
 }
