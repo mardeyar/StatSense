@@ -16,33 +16,107 @@ class TeamDetails extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              team.getLogoURL(),
-              height: 40,
-              width: 40,
-            ),
             SizedBox(width: 8),
             Text(
-              team.teamName,
+              'Team Details',
               style: AppBarStyle.appBarText,
             ),
           ],
         ),
         backgroundColor: AppBarStyle.appBarBackground,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Conference: ${team.conference}', style: TextStyle(color: Colors.white)),
-            Text('Division: ${team.division}', style: TextStyle(color: Colors.white)),
-            Text('Season Record: ${team.totalWins} - ${team.totalLosses} - ${team.totalOTL}', style: TextStyle(color: Colors.white)),
-            Text('Last 10 Record: ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}', style: TextStyle(color: Colors.white)),
-            Text('Goals For: ${team.goalsFor}', style: TextStyle(color: Colors.white)),
-            Text('Goals Against: ${team.goalsAgainst}', style: TextStyle(color: Colors.white)),
-            Text('Streak: ${team.streakCount}${team.streakCode}', style: TextStyle(color: Colors.white)),
-            Text('Points: ${team.last10Points}', style: TextStyle(color: Colors.white)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          team.getLogoURL(),
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                      Text(
+                        '${team.teamName}',
+                        style: BodyTextStyle.bodyTextStyleBold,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Text(
+              'Last 10 Games Trend Report',
+              style: BodyTextStyle.bodyTextStyleBold,
+            ),
+            SizedBox(height: 5),
+            Text(
+              'Record: ${team.last10Wins}-${team.last10Losses}-${team.last10OTL}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'Points: ${team.last10Points}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'GF Average: ${team.last10GoalsFor / 10}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'GA Average: ${team.last10GoalsAgainst / 10}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'Streak: ${team.streakCount}${team.streakCode}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Season Stats',
+              style: BodyTextStyle.bodyTextStyleBold,
+            ),
+            SizedBox(height: 5),
+            Text(
+              'Games Played: ${team.gamesPlayed}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'Record: ${team.totalWins}-${team.totalLosses}-${team.totalOTL}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'Points: ${(team.totalWins * 2) + (team.totalOTL)}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'GF Average: ${(team.goalsFor / team.gamesPlayed).toStringAsFixed(2)}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            Text(
+              'GA Average: ${(team.goalsAgainst / team.gamesPlayed).toStringAsFixed(2)}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Summary',
+              style: BodyTextStyle.bodyTextStyleBold,
+            ),
+            SizedBox(height: 5),
+            Text(
+              '${appFunction.getTrendingAnalysis(team)}',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
           ],
         ),
       ),
