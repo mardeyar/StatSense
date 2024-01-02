@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppBarStyle {
   static const TextStyle appBarText = TextStyle(
-    fontFamily: 'Rowdies-Regular',
-    fontSize: 32,
+    fontFamily: 'Inter-Bold',
+    fontSize: 28,
     color: Colors.white,
   );
 
