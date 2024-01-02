@@ -201,21 +201,21 @@ class FunctionManager {
   String getTrendingAnalysis(Team team) {
     if (team.last10Points >= 0 && team.last10Points <= 3) {
       return "The ${team.teamName} have been pretty bad recently, mustering just "
-          "${team.last10Points} points in their past 10 games and a ${team.last10Wins} - "
-          "${team.last10Losses} - ${team.last10OTL} record.";
+          "${team.last10Points} points in their past 10 games and a ${team.last10Wins}-"
+          "${team.last10Losses}-${team.last10OTL} record.";
     } else if (team.last10Points >= 4 && team.last10Points <= 7) {
       return "The ${team.teamName} have been pretty cold of late, gaining only ${team.last10Points} "
-          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+          "points in their past 10 games with a record of ${team.last10Wins}-${team.last10Losses}-${team.last10OTL}.";
     } else if (team.last10Points >= 8 && team.last10Points <= 11) {
       return "The ${team.teamName} have been lukewarm, getting ${team.last10Points} "
-          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+          "points in their past 10 games with a record of ${team.last10Wins}-${team.last10Losses}-${team.last10OTL}.";
     } else if (team.last10Points >= 12 && team.last10Points <= 15) {
       return "The ${team.teamName} have been playing some good hockey, gaining ${team.last10Points} "
-          "points in their past 10 games with a record of ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL}.";
+          "points in their past 10 games with a record of ${team.last10Wins}-${team.last10Losses}-${team.last10OTL}.";
     } else if (team.last10Points >= 16 && team.last10Points <= 20) {
       return "The ${team.teamName} have been running hot lately, getting points in "
           "${team.last10Wins + team.last10OTL} of their last 10 games, good for ${team.last10Points} "
-          "points. They have a ${team.last10Wins} - ${team.last10Losses} - ${team.last10OTL} "
+          "points. They have a ${team.last10Wins}-${team.last10Losses}-${team.last10OTL} "
           "record in their last 10.";
     } else {
       return "The program broke, this text should never have been shown";
@@ -229,8 +229,8 @@ class FunctionManager {
   */
   void calculateStreamScores() {
     for (final team in teamMap.values) {
-      final offDaysWeight = team.offDays * 0.65;
-      final gameWeight = team.totalGames * 0.95;
+      final offDaysWeight = team.offDays * 0.95;
+      final gameWeight = team.totalGames * 0.90;
       final trendScore = team.getTrendScore();
       final pctScore = (offDaysWeight + gameWeight + trendScore) * 10;
 
