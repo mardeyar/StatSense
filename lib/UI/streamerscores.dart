@@ -123,10 +123,6 @@ class _StreamerScoreState extends State<StreamerScore> {
                       'Off Day Games: ${team.offDays}',
                       style: BodyTextStyle.bodyTextStyleReg,
                     ),
-                    Text(
-                      'Summary: ${appFunction.getTrendingAnalysis(team)}',
-                      style: BodyTextStyle.bodyTextStyleReg,
-                    ),
                   ],
                 ),
               ),
