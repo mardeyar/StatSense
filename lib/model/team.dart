@@ -85,7 +85,6 @@ class Team {
       'streakCode': streakCode,
       'streakCount': streakCount,
       'gameDates': gameDates,
-      //'trendScore': trendScore,
       'streamerScore': streamerScore,
       'totalGames': totalGames,
       'offDays': offDays,
@@ -115,7 +114,6 @@ class Team {
       streakCode: json['streakCode'],
       streakCount: json['streakCount'],
       gameDates: List<String>.from(json['gameDates']),
-      //trendScore: json['trendScore'],
       streamerScore: json['streamerScore'],
       totalGames: json['totalGames'],
       offDays: json['offDays'],
@@ -123,8 +121,8 @@ class Team {
   }
 
   double getTrendScore() {
-    double wins = last10Wins.toDouble() * 0.1;
-    double points = last10Points.toDouble() * 0.1;
+    double wins = last10Wins.toDouble() * 0.05;
+    double points = last10Points.toDouble() * 0.05;
     double gf = (last10GoalsFor.toDouble() / 10) * 0.05;
     double ga = (last10GoalsAgainst.toDouble() / 10) * 0.05;
 
