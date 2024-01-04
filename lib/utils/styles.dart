@@ -20,17 +20,20 @@ class DayButtonStyle {
   static const TextStyle dayButtonText = TextStyle(
     fontFamily: 'Inter-Regular',
     color: Colors.white60,
+    fontSize: 10,
   );
 
   static const TextStyle selectedDayText = TextStyle(
     fontFamily: 'Inter-Bold',
     fontWeight: FontWeight.bold,
     color: Colors.white,
-    fontSize: 18,
+    fontSize: 12,
   );
 
   static ButtonStyle dayButtonStyle = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(0)),
+    elevation: MaterialStateProperty.all<double>(0),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+    shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
   );
 }
 
