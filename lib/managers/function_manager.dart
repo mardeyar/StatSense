@@ -31,9 +31,14 @@ class FunctionManager {
       final dir = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/data/appdata.json');
 
+      // File will not be there on first run or cache clear, check
+      if (!await file.exists()) {
+        await file.create(recursive: true);
+      }
+
       await file.writeAsString(jsonData);
     } catch (e) {
-      print('Error: $e');
+      print('Write Error: $e');
     }
   }
 
