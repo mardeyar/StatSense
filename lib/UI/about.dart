@@ -22,7 +22,7 @@ class About extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              'Version: 1.0.0',
+              'Version: 1.0.0\nAuthored by: Mark Deyarmond',
               style: BodyTextStyle.bodyTextStyleReg,
             ),
             SizedBox(height: 16.0),
