@@ -28,10 +28,10 @@ class Contact extends StatelessWidget {
                 style: BodyTextStyle.bodyTextStyleReg,
                 children: [
                   TextSpan(
-                    text: 'Any bug reports can be emailed to ',
+                    text: 'Any bug reports can be sent via ',
                   ),
                   _linkText(
-                    'techdevmd@gmail.com',
+                    'email',
                     'mailto:techdevmd@gmail.com?subject=StatSense Bug Report',
                   ),
                   TextSpan(
@@ -42,6 +42,29 @@ class Contact extends StatelessWidget {
                   _linkText(
                     'StatSense GitHub repo',
                     'https://github.com/mardeyar/nhl_streamers/issues'
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Feature Requests',
+              style: BodyTextStyle.bodyTextStyleBold,
+            ),
+            SizedBox(height: 8),
+            RichText(
+              text: TextSpan(
+                style: BodyTextStyle.bodyTextStyleReg,
+                children: [
+                  TextSpan(
+                    text: 'To request features for StatSense, please send an ',
+                  ),
+                  _linkText(
+                    'email',
+                    'mailto:techdevmd@gmail.com?subject=StatSense Feature Request',
+                  ),
+                  TextSpan(
+                    text: ' and specify which features you would like to see implemented.',
                   ),
                 ],
               ),
