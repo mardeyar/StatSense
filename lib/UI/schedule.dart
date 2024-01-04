@@ -68,20 +68,29 @@ class _ScheduleState extends State<Schedule> {
       child: Row(
         children: List.generate(7, (index) {
           final day = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).add(Duration(days: index));
-          return Padding(
-            padding: EdgeInsets.all(1.0),
-            child: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _selectedDayIndex = index;
-                });
-              },
-              style: DayButtonStyle.dayButtonStyle,
-              child: Text(
-                DateFormat.E().format(day),
-                style: _selectedDayIndex == index
-                  ? DayButtonStyle.selectedDayText
-                  : DayButtonStyle.dayButtonText,
+          return SizedBox(
+            width: MediaQuery.of(context).size.width / 7, // Dividing screen width by 7 for equal widths
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedDayIndex = index;
+                  });
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: _selectedDayIndex == index ? Colors.transparent : Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    side: BorderSide(color: Colors.transparent),
+                  ),
+                ),
+                child: Text(
+                  DateFormat.E().format(day),
+                  style: _selectedDayIndex == index
+                      ? DayButtonStyle.selectedDayText
+                      : DayButtonStyle.dayButtonText,
+                ),
               ),
             ),
           );
@@ -89,6 +98,7 @@ class _ScheduleState extends State<Schedule> {
       ),
     );
   }
+
 
   Widget buildGameList(List<GameDate> gameDates) {
     return ListView.builder(
