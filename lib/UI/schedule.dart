@@ -69,7 +69,7 @@ class _ScheduleState extends State<Schedule> {
         children: List.generate(7, (index) {
           final day = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).add(Duration(days: index));
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
+            padding: EdgeInsets.all(1.0),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -109,7 +109,7 @@ class _ScheduleState extends State<Schedule> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(4.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: gameDay.gameList.map((game) {
@@ -127,7 +127,7 @@ class _ScheduleState extends State<Schedule> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          padding: EdgeInsets.all(15.0),
                           child: Column(
                             children: [
                               Row(
