@@ -37,11 +37,10 @@ class Contact extends StatelessWidget {
                   TextSpan(
                     text: ' along with a brief description of the bug you encountered '
                         'and if possible, how to produce the bug. To see an ongoing list '
-                        'of known bugs, please visit the issues tab on the StatSense '
-                        'GitHub repo at '
+                        'of known bugs, please visit the issues tab on the ',
                   ),
                   _linkText(
-                    'https://github.com/mardeyar/nhl_streamers/issues',
+                    'StatSense GitHub repo',
                     'https://github.com/mardeyar/nhl_streamers/issues'
                   ),
                 ],
