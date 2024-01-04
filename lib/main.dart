@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nhl/managers/function_manager.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
@@ -7,7 +8,10 @@ import '../UI/settings.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FunctionManager().writeData();
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
