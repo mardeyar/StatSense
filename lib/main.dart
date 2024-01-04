@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
             )
           ],
           currentIndex: _selectedNavIndex,
-          selectedItemColor: Color(0xFF3FC3F5),
+          selectedItemColor: Color(0xFF0486BD),
           unselectedItemColor: Colors.black,
           unselectedLabelStyle: TextStyle(
             color: Colors.black,
