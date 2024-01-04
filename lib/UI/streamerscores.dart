@@ -69,7 +69,7 @@ class _StreamerScoreState extends State<StreamerScore> {
               borderRadius: BorderRadius.circular(5.0),
             ),
             elevation: 2,
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(4.0),
             color: Colors.transparent,
             child: Container(
               decoration: BoxDecoration(
