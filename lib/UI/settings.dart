@@ -51,16 +51,36 @@ class Settings extends StatelessWidget {
 
   Widget _buildCard(BuildContext context, String title, VoidCallback onTap) {
     return Card(
-      child: ListTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
-            Icon(Icons.arrow_forward_ios),
-          ],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      elevation: 2,
+      margin: EdgeInsets.symmetric(vertical: 3.0),
+      color: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
+          ),
         ),
-        onTap: onTap,
+        child: ListTile(
+          title: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: BodyTextStyle.bodyTextStyleBold),
+                Icon(Icons.arrow_forward_ios, color: Colors.white),
+              ],
+            ),
+          ),
+          onTap: onTap,
+        ),
       ),
     );
   }
+
 }
