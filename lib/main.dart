@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nhl/managers/function_manager.dart';
+import 'package:nhl/utils/styles.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
 import '../UI/settings.dart';
@@ -42,38 +43,46 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Hides the "debug" corner label
-      theme: ThemeData(scaffoldBackgroundColor: Color(0xFF293034)),
+      theme: ThemeData(scaffoldBackgroundColor: Color(0xFF282828)),
       home: Scaffold(
         body: appPages[_selectedNavIndex], // Will show the selected nav page
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: 'Schedule',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calculate),
-              label: 'Streamer Scores',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            )
-          ],
-          currentIndex: _selectedNavIndex,
-          selectedItemColor: Color(0xFF0486BD),
-          unselectedItemColor: Colors.black,
-          unselectedLabelStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 8,
+        bottomNavigationBar: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
-          selectedLabelStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 8,
+          child: BottomNavigationBar(
+            backgroundColor: BottomNavStyle.bottomNavColor,
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month),
+                label: 'Schedule',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calculate),
+                label: 'Streamer Scores',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              )
+            ],
+            currentIndex: _selectedNavIndex,
+            selectedItemColor: Color(0xff6ca3d2),
+            unselectedItemColor: Colors.white,
+            unselectedLabelStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+            ),
+            selectedLabelStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+            ),
+            onTap: _onItemTapped,
           ),
-          onTap: _onItemTapped,
         ),
+
       ),
     );
   }
