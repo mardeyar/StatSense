@@ -10,6 +10,7 @@ class About extends StatelessWidget {
         style: AppBarStyle.appBarText,
         ),
         backgroundColor: AppBarStyle.appBarBackground,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
