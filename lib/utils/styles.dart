@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppBarStyle {
   static const TextStyle appBarText = TextStyle(
-    fontFamily: 'Inter-Bold',
+    fontFamily: 'Lato-Bold',
     fontSize: 28,
     color: Colors.white,
   );
@@ -12,22 +12,22 @@ class AppBarStyle {
     shadowColor: Colors.black,
   );
 
-  static const Color appBarBackground = Color.fromRGBO(78, 128, 152, 100);
+  static const Color appBarBackground = Color(0xFF1A2123);
 }
 
 class DayButtonStyle {
   // Styles for the schedule date buttons
   static const TextStyle dayButtonText = TextStyle(
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Lato-Regular',
     color: Colors.white60,
-    fontSize: 10,
+    fontSize: 12,
   );
 
   static const TextStyle selectedDayText = TextStyle(
-    fontFamily: 'Inter-Bold',
+    fontFamily: 'Lato-Bold',
     fontWeight: FontWeight.bold,
     color: Colors.white,
-    fontSize: 12,
+    fontSize: 14,
   );
 
   static ButtonStyle dayButtonStyle = ButtonStyle(
@@ -39,14 +39,25 @@ class DayButtonStyle {
 
 class BodyTextStyle {
   static const TextStyle bodyTextStyleBold = TextStyle(
-    fontFamily: 'Inter-Bold',
+    fontFamily: 'Lato-Bold',
     fontWeight: FontWeight.bold,
     fontSize: 18,
     color: Colors.white,
   );
 
   static const TextStyle bodyTextStyleReg = TextStyle(
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Lato-Regular',
     color: Colors.white,
+  );
+}
+
+class CardStyle {
+  static Decoration cardBackground = BoxDecoration(
+    borderRadius: BorderRadius.circular(5.0),
+    gradient: LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [Color(0xFF2F3A3F), Color(0xBE2F3A3F)],
+    ),
   );
 }
