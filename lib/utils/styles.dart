@@ -12,22 +12,22 @@ class AppBarStyle {
     shadowColor: Colors.black,
   );
 
-  static const Color appBarBackground = Color(0xFF1A2123);
+  static const Color appBarBackground = Color(0xFF3f3f3f);
 }
 
 class DayButtonStyle {
   // Styles for the schedule date buttons
   static const TextStyle dayButtonText = TextStyle(
     fontFamily: 'Lato-Regular',
-    color: Colors.white60,
-    fontSize: 12,
+    color: Color(0xFF8b8b8b),
+    fontSize: 11,
   );
 
   static const TextStyle selectedDayText = TextStyle(
     fontFamily: 'Lato-Bold',
     fontWeight: FontWeight.bold,
-    color: Colors.white,
-    fontSize: 14,
+    color: Color(0xFFDCDCDC),
+    fontSize: 13,
   );
 
   static ButtonStyle dayButtonStyle = ButtonStyle(
@@ -55,9 +55,13 @@ class CardStyle {
   static Decoration cardBackground = BoxDecoration(
     borderRadius: BorderRadius.circular(5.0),
     gradient: LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: [Color(0xFF2F3A3F), Color(0xBE2F3A3F)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Color(0xFF7575757), Color(0xcb575757)],
     ),
   );
+}
+
+class BottomNavStyle {
+  static Color bottomNavColor = Color(0xFF3f3f3f);
 }
