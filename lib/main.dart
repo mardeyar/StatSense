@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Hides the "debug" corner label
-      theme: ThemeData(scaffoldBackgroundColor: Color(0xFF1E1E1E)),
+      theme: ThemeData(scaffoldBackgroundColor: Color(0xFF293034)),
       home: Scaffold(
         body: appPages[_selectedNavIndex], // Will show the selected nav page
         bottomNavigationBar: BottomNavigationBar(
