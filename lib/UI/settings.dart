@@ -16,6 +16,12 @@ class Settings extends StatelessWidget {
           style: AppBarStyle.appBarText,
         ),
         backgroundColor: AppBarStyle.appBarBackground,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(10.0),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 10.0),
+            ),
+          )
       ),
       body: Padding(
         padding: EdgeInsets.all(10.0),
@@ -58,14 +64,7 @@ class Settings extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 3.0),
       color: Colors.transparent,
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
-          ),
-        ),
+        decoration: CardStyle.cardBackground,
         child: ListTile(
           title: Padding(
             padding: EdgeInsets.all(8.0),

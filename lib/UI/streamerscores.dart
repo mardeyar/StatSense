@@ -27,6 +27,12 @@ class _StreamerScoreState extends State<StreamerScore> {
         style: AppBarStyle.appBarText,
         ),
         backgroundColor: AppBarStyle.appBarBackground,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(10.0),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: appFunction.readData(),
@@ -72,14 +78,7 @@ class _StreamerScoreState extends State<StreamerScore> {
             margin: EdgeInsets.all(4.0),
             color: Colors.transparent,
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xFF282828), Color(0xFF2A2A2A)],
-                ),
-              ),
+              decoration: CardStyle.cardBackground,
               child: Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Column(
