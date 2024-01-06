@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nhl/UI/splash.dart';
 import 'package:nhl/managers/function_manager.dart';
 import 'package:nhl/utils/styles.dart';
 import '../UI/schedule.dart';
@@ -11,6 +12,11 @@ void main() async {
   await FunctionManager().writeData();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) {
+    runApp(MaterialApp(
+      home: SplashScreen(),
+    ));
+  });
+  Future.delayed(Duration(seconds: 4), () {
     runApp(MyApp());
   });
 }
