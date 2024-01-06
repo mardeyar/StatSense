@@ -11,6 +11,7 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.1.1
   url_launcher: ^6.2.2
+  flutter_native_splash: ^2.3.9
   flutter:
     sdk: flutter
 
@@ -29,7 +30,7 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/images/ic.png"
-  adaptive_icon_background: "#ffffff"
+  adaptive_icon_background: "#2d2d2d"
   adaptive_icon_foreground: "assets/images/logo_foreground.png"
 
 # The following section is specific to Flutter packages.
@@ -56,4 +57,5 @@ flutter:
 
   assets:
     - assets/images/team_logos/
+    - assets/images/splash.png
   uses-material-design: true
