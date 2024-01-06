@@ -26,7 +26,7 @@ class _ScheduleState extends State<Schedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('NHL Schedule',
+        title: Text('Schedule',
         style: AppBarStyle.appBarText,
         ),
         backgroundColor: AppBarStyle.appBarBackground,
