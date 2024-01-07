@@ -35,7 +35,7 @@ class _StreamerScoreState extends State<StreamerScore> {
         ),
       ),
       body: FutureBuilder(
-        future: appFunction.readData(),
+        future: appFunction.readDataFromFile(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
