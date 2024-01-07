@@ -9,7 +9,7 @@ import '../UI/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FunctionManager().writeData();
+  await FunctionManager().writeDataFromAPI();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) {
     runApp(MaterialApp(
