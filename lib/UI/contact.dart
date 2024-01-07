@@ -97,6 +97,7 @@ class Contact extends StatelessWidget {
     );
   }
 
+  // TODO: replace deprecated 'launch' function with 'launchURL'
   Future<void> _launchURL(String url) async {
     try {
       await launch(url);
@@ -104,5 +105,4 @@ class Contact extends StatelessWidget {
       print('Error launching URL: $e');
     }
   }
-
 }
