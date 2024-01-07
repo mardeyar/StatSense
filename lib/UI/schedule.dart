@@ -29,6 +29,7 @@ class _ScheduleState extends State<Schedule> {
         title: Text('Schedule',
         style: AppBarStyle.appBarText,
         ),
+        titleSpacing: 20,
         backgroundColor: AppBarStyle.appBarBackground,
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(10.0),
@@ -125,7 +126,7 @@ class _ScheduleState extends State<Schedule> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: gameDay.gameList.map((game) {

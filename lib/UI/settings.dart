@@ -15,6 +15,7 @@ class Settings extends StatelessWidget {
         title: Text('Settings',
           style: AppBarStyle.appBarText,
         ),
+        titleSpacing: 20,
         backgroundColor: AppBarStyle.appBarBackground,
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(10.0),
