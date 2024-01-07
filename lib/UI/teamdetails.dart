@@ -25,6 +25,12 @@ class TeamDetails extends StatelessWidget {
         ),
         backgroundColor: AppBarStyle.appBarBackground,
         iconTheme: IconThemeData(color: Colors.white),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(10.0),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(10.0),
