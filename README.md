@@ -9,7 +9,7 @@ Picked up a player from **TOR** last week who is only playing 2 games this week 
 ## Getting Started
 * Download [Android Studio](https://developer.android.com/studio) and follow the setup instructions.
 * Ensure you have [Flutter](https://docs.flutter.dev/get-started/install) set up and installed on your system and integrated with Android Studio. You may need to follow the [documentation](https://docs.flutter.dev/) to get this properly set up.
-* Clone this repo into your local with the following command:<br>```git clone https://github.com/mardeyar/nhl_streamers.git```
+* Clone this repo into your local with the following command:<br>```git clone https://github.com/mardeyar/StatSense.git```
 * Open the project in Android Studio and run the app on either a virtual or physical device. Note that running on physical will build and run the app on your device, allowing you to use the app outside the development environment.
 * Check out the results and use to your advantage.
 ## Known Issues
