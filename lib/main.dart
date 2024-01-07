@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nhl/UI/splash.dart';
 import 'package:nhl/managers/function_manager.dart';
 import 'package:nhl/utils/styles.dart';
 import '../UI/schedule.dart';
@@ -12,11 +11,6 @@ void main() async {
   await FunctionManager().writeDataFromAPI();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) {
-    runApp(MaterialApp(
-      home: SplashScreen(),
-    ));
-  });
-  Future.delayed(Duration(seconds: 4), () {
     runApp(MyApp());
   });
 }
@@ -76,19 +70,18 @@ class _MyAppState extends State<MyApp> {
             ],
             currentIndex: _selectedNavIndex,
             selectedItemColor: Color(0xff6ca3d2),
-            unselectedItemColor: Colors.white,
+            unselectedItemColor: Color(0xFFCECECE),
             unselectedLabelStyle: TextStyle(
-              color: Colors.white,
+              color: Color(0xFFCECECE),
               fontSize: 11,
             ),
             selectedLabelStyle: TextStyle(
-              color: Colors.white,
+              color: Color(0xFFCECECE),
               fontSize: 11,
             ),
             onTap: _onItemTapped,
           ),
         ),
-
       ),
     );
   }
