@@ -42,7 +42,7 @@ class _ScheduleState extends State<Schedule> {
           _buildDaySelectRow(),
           Expanded(
             child: FutureBuilder(
-              future: appFunction.readData(),
+              future: appFunction.readDataFromFile(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -54,7 +54,7 @@ class _ScheduleState extends State<Schedule> {
                   );
                 } else {
                   // Filter games based on the selected day
-                  final List<GameDate> filteredGameDates = appFunction.gameDates
+                  final List<GameDate> filteredGameDates = appFunction.scheduledGames
                       .where((gameDate) =>
                   DateTime.parse(gameDate.date).weekday == _selectedDayIndex + 1)
                       .toList();
