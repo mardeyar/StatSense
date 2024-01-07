@@ -57,5 +57,4 @@ flutter:
 
   assets:
     - assets/images/team_logos/
-    - assets/images/splash.png
   uses-material-design: true
