@@ -20,16 +20,10 @@ class Team {
   String streakCode;
   int streakCount;
   List<String> gameDates = [];
-  //double trendScore;
   double streamerScore;
   int totalGames;
   int offDays;
 
-  /*
-  * Don't want to be required to use each and every one of these parameters
-  * just to create a new instance of a team object so initializing all of these
-  * to either 'null' for string or '0' for int
-  */
   Team({
     this.teamName = '',
     this.teamAbbrev = '',
@@ -57,7 +51,11 @@ class Team {
     this.gameDates = const [],
   });
 
-  // Generate a local URL to display team logos. This saves making a network request every time
+  /**
+   * Fetches the teams logo from local storage, avoids network requests on each
+   * screen redraw<br>
+   * [returns]: Image of team logo
+   */
   String getLogoURL() {
     return 'assets/images/team_logos/${teamAbbrev}.png';
   }
@@ -120,6 +118,11 @@ class Team {
     );
   }
 
+  /**
+   * Uses a formula of teams last 10 games attributes to give an idea on trending
+   * performance. Used to calculate teams 'streamerScore'<br>
+   * [returns]: The final results of the formula
+   */
   double getTrendScore() {
     double wins = last10Wins.toDouble() * 0.05;
     double points = last10Points.toDouble() * 0.05;
