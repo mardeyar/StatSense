@@ -1,4 +1,4 @@
-import 'package:http/http.dart' as http;
+import 'package:nhl/api/nhl_api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -8,15 +8,18 @@ import '../model/team.dart';
 import '../utils/date_utils.dart';
 
 class FunctionManager {
-  late List<GameDate> gameDates = [];
+  late List<GameDate> scheduledGames = [];
   late Map<String, Team> teamMap = {};
 
   // Write the game/team data to a json file for quicker app speed, saves network requests
-  Future<void> writeData() async {
+  Future<void> writeDataFromAPI() async {
+    // Call these methods to first gather the data from API then write to json
     await fetchGameData();
     await fetchTeams();
+    await setTeamOffDays();
+    await calculateStreamScores();
 
-    final gameJson = gameDates.map((gameDate) => gameDate.toJson()).toList();
+    final gameJson = scheduledGames.map((gameDate) => gameDate.toJson()).toList();
     final teamJson = teamMap.map((key, value) => MapEntry(key, value.toJson()));
 
     // Map to represent data saved to file
@@ -31,7 +34,7 @@ class FunctionManager {
       final dir = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/data/appdata.json');
 
-      // File will not be there on first run or cache clear, check
+      // File won't be there on first run or cache clear, check if file exists
       if (!await file.exists()) {
         await file.create(recursive: true);
       }
@@ -42,7 +45,7 @@ class FunctionManager {
     }
   }
 
-  Future<void> readData() async {
+  Future<void> readDataFromFile() async {
     try {
       final dir = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/data/appdata.json');
@@ -53,7 +56,7 @@ class FunctionManager {
         final decodeData = json.decode(utf8.decode(jsonData.codeUnits));
 
         // Update gameDates & teamMap with decoded json data
-        gameDates = (decodeData['gameDates'] as List)
+        scheduledGames = (decodeData['gameDates'] as List)
             .map((gameJson) => GameDate.fromJson(gameJson))
             .toList();
 
@@ -74,17 +77,12 @@ class FunctionManager {
     final DateTime weekStart = today.subtract(Duration(days: today.weekday - 1));
     final formattedDate = DateUtils.formatWeekStartDate(weekStart);
 
-    // Fetch the data from the NHL API
-    final response = await http.get(
-      Uri.parse('https://api-web.nhle.com/v1/schedule/$formattedDate'),
-    );
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      final List<dynamic> gameWeek = responseData['gameWeek'];
+    try {
+      final scheduleData = await NHLApi.fetchScheduleData(formattedDate);
+      final List<dynamic> gameWeek = scheduleData['gameWeek'];
 
       // Process data from API call
-      gameDates = gameWeek.map((gameData) {
+      scheduledGames = gameWeek.map((gameData) {
         final List<Game> games = [];
         final List<dynamic> gamesData = gameData['games'];
         final bool offDay = gameData['numberOfGames'] >= 1 && gameData['numberOfGames'] <= 7;
@@ -109,15 +107,8 @@ class FunctionManager {
           gameList: games,
         );
       }).toList();
-
-      // Get the rest of the attributes needed to make up a team object
-      // This is a hacky way, I'm sure there's a better way
-      await fetchTeams();
-      setTeamOffDays();
-      calculateStreamScores();
-
-    } else {
-      throw Exception('Failed to load NHL Game data.');
+    } catch (e) {
+      print('Failed to load schedule data: $e');
     }
   }
 
@@ -137,16 +128,17 @@ class FunctionManager {
     }
   }
 
-  void setTeamOffDays() async {
+  Future<dynamic> setTeamOffDays() async {
     final Map<String, int> gamesPerDay = {};
-    for (final date in gameDates) {
+    for (final date in scheduledGames) {
       gamesPerDay[date.date] = date.numberOfGames;
     }
 
     /*
-     * This section of code goes through each team's game schedule to count games played on offDays.
-     * It looks at the number of games set for each date, checking if it's within offDay range (1 to 7).
-     * Then, it checks if a team has a game on that date. If they do, it increments offDay count.
+     * This section of code goes through each team's game schedule to count
+     * games played on offDays. It looks at the number of games set for each
+     * date, checking if it's within offDay range (1 to 7). Then, it checks if a
+     * team has a game on that date. If they do, it increments offDay count.
     */
     for (final team in teamMap.values) {
       for (final date in gamesPerDay.keys) {
@@ -162,13 +154,9 @@ class FunctionManager {
 
   Future<void> fetchTeams() async {
     // Fetch the teams data from the NHL API
-    final teamResponse = await http.get(
-      Uri.parse('https://api-web.nhle.com/v1/standings/now'),
-    );
-
-    if (teamResponse.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(teamResponse.body);
-      final List<dynamic> allTeams = responseData['standings'];
+    try {
+      final teamData = await NHLApi.fetchTeamStats();
+      final List<dynamic> allTeams = teamData['standings'];
 
       for (var teamData in allTeams) {
         final teamAbbrev = teamData['teamAbbrev']['default'];
@@ -197,8 +185,8 @@ class FunctionManager {
           team.streakCount = teamData['streakCount'];
         }
       }
-    } else {
-      throw Exception('Failed to load NHL teams data...');
+    } catch (e) {
+      print('Failed to load team stats: $e');
     }
   }
 
@@ -227,12 +215,7 @@ class FunctionManager {
     }
   }
 
-  /*
-  * Formula to determine which teams are best to pick up players from
-  * Current method is a placeholder; it can use some refining. See Team class
-  * with method 'getTrendScore()' for further formula
-  */
-  void calculateStreamScores() {
+  Future<dynamic> calculateStreamScores() async {
     for (final team in teamMap.values) {
       final offDaysWeight = team.offDays * 0.95;
       final gameWeight = team.totalGames * 0.90;
