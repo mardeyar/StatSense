@@ -8,17 +8,21 @@ import '../model/team.dart';
 import '../utils/date_utils.dart';
 
 class FunctionManager {
+
+  // Global variables because values from different methods need to be stored at different times
   late List<GameDate> scheduledGames = [];
   late Map<String, Team> teamMap = {};
 
-  // Write the game/team data to a json file for quicker app speed, saves network requests
+  /**
+   * Writes the data retrieved from fetchGameData & fetchTeams methods and writes
+   * to a json file stored in the data folder.
+   */
   Future<void> writeDataFromAPI() async {
+
     // Call these methods to first gather the data from API then write to json
     await fetchGameData();
-    await fetchTeams();
-    await setTeamOffDays();
+    await fetchTeamStats();
     await calculateStreamScores();
-
     final gameJson = scheduledGames.map((gameDate) => gameDate.toJson()).toList();
     final teamJson = teamMap.map((key, value) => MapEntry(key, value.toJson()));
 
@@ -45,6 +49,10 @@ class FunctionManager {
     }
   }
 
+  /**
+   * Reads the data that writeDataFromAPI stores. This is to store data locally
+   * to avoid sending API calls for every screen redraw.
+   */
   Future<void> readDataFromFile() async {
     try {
       final dir = await getApplicationDocumentsDirectory();
@@ -71,7 +79,10 @@ class FunctionManager {
     }
   }
 
-  // This method retrieves all game data for specified week
+  /**
+   * Parses the NHL API to retrieve select attributes that make up a 'game'
+   * or a 'team' object.
+   */
   Future<void> fetchGameData() async {
     final DateTime today = DateTime.now();
     final DateTime weekStart = today.subtract(Duration(days: today.weekday - 1));
@@ -112,13 +123,18 @@ class FunctionManager {
     }
   }
 
+  /**
+   * Sets a few attributes for a team object from data that is only found in the
+   * scheduling part of the NHL API call.<br>
+   * <br>[teamAbbrev] Used to dynamically assign 'totalGames' & 'offDays' attributes by using a teams abbreviation.<br>
+   * <br>[offDay] Increments a team objects 'offDay' attribute count if they're playing on a day with < 8 games played.
+   */
   void setTeamScheduleValues(String teamAbbrev, bool offDay) {
     if (!teamMap.containsKey(teamAbbrev)) {
       teamMap[teamAbbrev] = Team(
         teamName: teamAbbrev,
         totalGames: 0,
         offDays: 0,
-        streamerScore: 0,
         gameDates: [],
       );
     }
@@ -128,32 +144,9 @@ class FunctionManager {
     }
   }
 
-  Future<dynamic> setTeamOffDays() async {
-    final Map<String, int> gamesPerDay = {};
-    for (final date in scheduledGames) {
-      gamesPerDay[date.date] = date.numberOfGames;
-    }
-
-    /*
-     * This section of code goes through each team's game schedule to count
-     * games played on offDays. It looks at the number of games set for each
-     * date, checking if it's within offDay range (1 to 7). Then, it checks if a
-     * team has a game on that date. If they do, it increments offDay count.
-    */
-    for (final team in teamMap.values) {
-      for (final date in gamesPerDay.keys) {
-        final todayGames = gamesPerDay[date]!;
-        if (todayGames > 0 && todayGames < 8) {
-          if (team.gameDates.contains(date)) {
-            team.offDays++;
-          }
-        }
-      }
-    }
-  }
-
-  Future<void> fetchTeams() async {
-    // Fetch the teams data from the NHL API
+  /** Parses the NHL API standings endpoint to retrieve data needed to set attributes
+   * for a team object. */
+  Future<void> fetchTeamStats() async {
     try {
       final teamData = await NHLApi.fetchTeamStats();
       final List<dynamic> allTeams = teamData['standings'];
@@ -190,7 +183,12 @@ class FunctionManager {
     }
   }
 
-  // String method to show a quick summary of the teams recent performance
+  /**
+   * Runs some if statements to give an analysis on a teams performance over last
+   * 10 games using data gathered by fetchTeams method.<br>
+   * <br>[team]: Object to get the analysis about<br>
+   * <br>returns: String trend analysis of teams performance based on points
+   */
   String getTrendingAnalysis(Team team) {
     if (team.last10Points >= 0 && team.last10Points <= 3) {
       return "The ${team.teamName} have been pretty bad recently, mustering just "
@@ -215,6 +213,9 @@ class FunctionManager {
     }
   }
 
+  /**
+   * Calculate a streamerScore using formula based on values of team attributes
+   */
   Future<dynamic> calculateStreamScores() async {
     for (final team in teamMap.values) {
       final offDaysWeight = team.offDays * 0.95;
