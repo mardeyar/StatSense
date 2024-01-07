@@ -16,7 +16,7 @@ class NHLApi {
   }
 
   // Builds the methods to fetch data on current league standings
-  static Future<Map<String, dynamic>> fetchTeamStandings() async {
+  static Future<Map<String, dynamic>> fetchTeamStats() async {
     final standingsResponse = await http.get(
       Uri.parse('https://api-web.nhle.com/v1/standings/now'),
     );
@@ -25,19 +25,6 @@ class NHLApi {
       return json.decode(standingsResponse.body);
     } else {
       throw Exception('Failed to load NHL standings...');
-    }
-  }
-  
-  // Builds the method to fetch player data from teams
-  static Future<Map<String, dynamic>> fetchPlayerData(int playerId) async {
-    final playerDataResponse = await http.get(
-      Uri.parse('https://api-web.nhle.com/v1/player/$playerId/landing'),
-    );
-
-    if (playerDataResponse.statusCode == 200) {
-      return json.decode(playerDataResponse.body);
-    } else {
-      throw Exception('Failed to load player data...');
     }
   }
 }
