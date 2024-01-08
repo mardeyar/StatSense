@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/utils/styles.dart';
+import 'package:statsense/utils/styles.dart';
 import '../managers/function_manager.dart';
 import '../model/team.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nhl/managers/function_manager.dart';
-import 'package:nhl/utils/styles.dart';
+import 'package:statsense/managers/function_manager.dart';
+import 'package:statsense/utils/styles.dart';
 import '../UI/schedule.dart';
 import '../UI/streamerscores.dart';
 import '../UI/settings.dart';

@@ -1,4 +1,4 @@
-import 'package:nhl/api/nhl_api.dart';
+import 'package:statsense/api/nhl_api.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';

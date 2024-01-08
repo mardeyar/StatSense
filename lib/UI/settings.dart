@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nhl/utils/styles.dart';
+import 'package:statsense/utils/styles.dart';
 import '../UI/about.dart';
 import '../UI/contact.dart';
 
