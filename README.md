@@ -10,12 +10,12 @@ Part of being an NHL fantasy league manager is picking up and dropping players o
 ## How it works
 StatSense does a few things to help you choose which players you need to stream. First, it pulls the NHL schedule directly via the public NHL API and lists which games are being played on each day of the week. Then, it will count how many games are being played each day to determine if it is an 'off day' where less than half the NHL teams are playing. If this is the case, that day will be marked as an off day and each team playing will be assigned +1 for off day count. Finally, each team is given a *streamer score*. StreamerScores are listed in descending order from highest to lowest to provide at a glance information to help you make quicker, more informed decisions about your streaming targets, saving you tons of research time.<br><br> 
 Picked up a player from **TOR** last week who is only playing 2 games this week that both fall on busy nights? Drop them for a player on **CGY** who is playing 4 games, all of which fall on off days. This gains you 2 additional games per week, doing this over 3-5 roster spots is a great way to mazimize your weekly games played by virtue of volume and simple math.
-## Run in IDE
+## For Development 
 * Download [Android Studio](https://developer.android.com/studio) and follow the setup instructions.
 * Ensure you have [Flutter](https://docs.flutter.dev/get-started/install) set up and installed on your system and integrated with Android Studio. You may need to follow the [documentation](https://docs.flutter.dev/) to get this properly set up.
 * Clone this repo into your local with the following command:<br>```git clone https://github.com/mardeyar/StatSense.git```
 * Open the project in Android Studio and run the app on either a virtual emulator or mirror to a physical device.
-## Install to device
+## For General Use
 Check the [releases page](https://github.com/mardeyar/StatSense/releases/latest) to grab the download for your chosen platform.
 ### Android
 * Download the APK file named **StatSense_vX.X.X.apk** from the releases page
