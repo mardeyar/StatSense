@@ -26,6 +26,11 @@ Check the [releases page](https://github.com/mardeyar/StatSense/releases/latest)
 **Not yet supported**
 ### macOS
 **Not yet supported**
+## Screenshots
+![z4DQKOh](https://github.com/mardeyar/StatSense/assets/117761940/62742826-566d-4781-8f41-6715808eefe1)
+![hWZg0Va](https://github.com/mardeyar/StatSense/assets/117761940/be5028e9-5d11-4b5d-9bf9-bf4d610bef9c)
+![YTVyPJj](https://github.com/mardeyar/StatSense/assets/117761940/4075826c-8ab6-489b-bdc7-8afba47e62f2)
+![Z3xgbrK](https://github.com/mardeyar/StatSense/assets/117761940/e4ba0065-6f31-4470-a9e7-35f721fb4eb1)
 ## Known Issues
 Visit the [issues page](https://github.com/mardeyar/StatSense/issues) to see a list on known issues and bugs. You can also submit bug reports through here.
 ## License
