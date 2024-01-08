@@ -44,8 +44,7 @@ class Contact extends StatelessWidget {
                   TextSpan(
                     text: ' along with a brief description of the bug you encountered '
                         'and if possible, how to produce the bug. Please be sure to '
-                        'also include your device and OS version if you can (ie. '
-                        'Android: 13 or iPhone 12: iOS 16.4 etc). To see an ongoing list '
+                        'also include your device and OS version if you can. To see an ongoing list '
                         'of known bugs, please visit the issues tab on the ',
                   ),
                   _linkText(
