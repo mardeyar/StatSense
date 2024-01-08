@@ -58,7 +58,7 @@ class About extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             Text(
-              'Streamer Scores', // Add your app description here
+              'Streamer Scores',
               style: BodyTextStyle.bodyTextStyleBold,
             ),
             SizedBox(height: 8.0),
@@ -68,6 +68,17 @@ class About extends StatelessWidget {
                   'and pickups. Each team is given a score based on this formula '
                   'and is listed from top teams to bottom. Tap on a teams streamer '
                   'card to view more details.',
+              style: BodyTextStyle.bodyTextStyleReg,
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Additional Information',
+              style: BodyTextStyle.bodyTextStyleBold,
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'This app was written and designed by Mark Deyarmond © 2024. Any '
+                  'questions or inquiries can be sent to techdevmd@gmail.com',
               style: BodyTextStyle.bodyTextStyleReg,
             ),
           ],
