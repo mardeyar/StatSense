@@ -1,4 +1,8 @@
-# StatSense
+<div style="display: flex; align-items: center;">
+  <img align="left" width="40" height="40" src="https://raw.githubusercontent.com/mardeyar/StatSense/master/windows/runner/resources/app_icon.ico" alt="Resume application project app icon">
+  <h1>StatSense</h1>
+</div>
+
 An app designed to assist with weekly pickups and drops in NHL Fantasy leagues
 ## What is the purpose?
 Part of being an NHL fantasy league manager is picking up and dropping players on a routine basis; this strategy is also known as *streaming players*. Most managers will leave between 3-5 rosters spots specifically for this purpose as a way to maximize the number of games played per week. But what happens when you have 20 players eligible to play on any given night but only 14 spots available? You then need to pick and choose which 6 players will be sitting on the bench. Then the next night rolls around with only 3 games being played and you find yourself with only 2 players playing that night.<br><br>
