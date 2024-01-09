@@ -14,7 +14,7 @@ Enter a short description of what the problem is. Ex. I'm always frustrated when
 Enter a short description of what your requested feature..
 
 **Which platform would you like to see this on? (Android, iOS, Windows, etc)**
-A clear and concise description of any alternative solutions or features you've considered.
+Enter the platform here..
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+Add any other context or screenshots about the feature request here..
