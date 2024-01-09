@@ -29,4 +29,4 @@ workflows:
     publishing:
       email:
         recipients:
-          techdevmd@gmail.com
+          - techdevmd@gmail.com
