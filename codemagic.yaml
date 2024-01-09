@@ -1,0 +1,26 @@
+workflows:
+  my_flutter_workflow:
+    name: StatSense_WF
+    environment:
+      flutter: stable
+      xcode: latest
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: false
+    scripts:
+      before_build:
+        - flutter pub get
+      build:
+        - flutter build ios --release --no-codesign
+      after_build:
+        - echo "Build finished successfully!"
+    artifacts:
+      - build/ios/Runner.ipa
