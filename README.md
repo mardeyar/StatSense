@@ -9,7 +9,7 @@ Part of being an NHL fantasy league manager is picking up and dropping players o
 **Enter: StatSense**
 ## How it works
 StatSense does a few things to help you choose which players you need to stream. First, it pulls the NHL schedule directly via the public NHL API and lists which games are being played on each day of the week. Then, it will count how many games are being played each day to determine if it is an 'off day' where less than half the NHL teams are playing. If this is the case, that day will be marked as an off day and each team playing will be assigned +1 for off day count. Finally, each team is given a *streamer score*. StreamerScores are listed in descending order from highest to lowest to provide at a glance information to help you make quicker, more informed decisions about your streaming targets, saving you tons of research time.<br><br> 
-Picked up a player from **TOR** last week who is only playing 2 games this week that both fall on busy nights? Drop them for a player on **CGY** who is playing 4 games, all of which fall on off days. This gains you 2 additional games per week, doing this over 3-5 roster spots is a great way to mazimize your weekly games played by virtue of volume and simple math.
+Picked up a player from **TOR** last week who is only playing 2 games this week that both fall on busy nights? Drop them for a player on **CGY** who is playing 4 games, all of which fall on off days. This gains you 2 additional games per week, doing this over 3-5 roster spots is a great way to maximize your weekly games played by virtue of volume and simple math.
 ## For Development 
 * Download [Android Studio](https://developer.android.com/studio) and follow the setup instructions.
 * Ensure you have [Flutter](https://docs.flutter.dev/get-started/install) set up and installed on your system and integrated with Android Studio. You may need to follow the [documentation](https://docs.flutter.dev/) to get this properly set up.
@@ -18,7 +18,7 @@ Picked up a player from **TOR** last week who is only playing 2 games this week 
 ## For General Use
 Check the [releases page](https://github.com/mardeyar/StatSense/releases/latest) to grab the download for your chosen platform.
 ### Android
-* Download the APK file named **StatSense_vX.X.X.apk** from the releases page
+* Download the APK file named **StatSense_vX.X.X_Android.apk** from the releases page
 * Go to your downloads folder or wherever the APK got downloaded to and open the APK to install to your Android device.
 * Profit
 ### Windows
@@ -27,7 +27,13 @@ Check the [releases page](https://github.com/mardeyar/StatSense/releases/latest)
 * Once extracted, open the folder called **StatSense** to find **StatSense.exe** and double click to run. Hint: you can pin this .exe file to your start menu or taskbar for quick access
 * Profit
 ### iOS
-**Not yet supported**
+**Due to the complicated nature of sideloading on iOS, this method is ***only*** recommended if you have some technical knowledge and know what you're doing.**
+* Download and install [AltServer for Windows](https://cdn.altstore.io/file/altstore/altinstaller.zip) or download and install [AltServer for macOS](https://cdn.altstore.io/file/altstore/altserver.zip). Be sure to follow the [documentation](https://faq.altstore.io/) to ensure you've set up AltServer on your computer and have been able to connect your iDevice with it.
+* Connect your iDevice to your computer and install AltStore onto your device. Again, if you're unsure of what to do, read through the [documentation](https://faq.altstore.io/).
+* Download the IPA file named **StatSense_vX.X.X_iOS.ipa** from the releases page to your iDevice.
+* Open AltStore on your iDevice and tap the + symbol on the top left of the app. Find the file named **StatSense_vX.X.X_iOS.ipa** that you downloaded and tap to install.
+* Profit<br><br>
+**Note:** While there are other methods of sideloading, this is the only one I've tested. This app will expire after 7 days so you will need to refresh at least once per week by either plugging your iDevice into your computer to refresh or connecting to the same WiFi network as your computer. All this is listed in the [AltStore documentation](https://faq.altstore.io/). I also cannot guarentee this will work for everyone as I have only tested on my personal device.
 ### macOS
 **Not yet supported**
 ## Screenshots
