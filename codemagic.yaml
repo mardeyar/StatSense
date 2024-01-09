@@ -1,26 +1,32 @@
 workflows:
-  my_flutter_workflow:
+  flutter_workflow:
     name: StatSense_WF
+    instance_type: mac_mini_m1
+    max_build_duration: 60
     environment:
+      groups:
+        - keystore_credentials
+        - app_store_credentials
+      vars:
+        GOOGLE_PLAY_TRACK: "beta"
       flutter: stable
       xcode: latest
-    cache:
-      cache_paths:
-        - ~/.pub-cache
     triggering:
       events:
         - push
+        - pull_request
+        - tag
       branch_patterns:
-        - pattern: '*'
+        - pattern: "*"
           include: true
-          source: true
-      cancel_previous_builds: false
     scripts:
-      before_build:
-        - flutter pub get
-      build:
-        - flutter build ios --release --no-codesign
-      after_build:
-        - echo "Build finished successfully!"
+      - name: Get Flutter Packages
+        script: flutter packages pub get
+      - name: Build iOS
+        script: flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/Runner.ipa
+      - build/**/outputs/**/*.aab
+    publishing:
+      email:
+        recipients:
+          - techdevmd@gmail.com
