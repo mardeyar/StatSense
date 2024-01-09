@@ -16,14 +16,12 @@ workflows:
           source: true
       cancel_previous_builds: false
     scripts:
-      - name: before_build
-        script:
-          - flutter pub get
-      - name: build
-        script:
-          - flutter build ios --release --no-codesign
-      - name: after_build
-        script:
-          - echo "Build finished successfully!"
+      script:
+        - name: before_build
+          script: flutter pub get
+        - name: build
+          script: flutter build ios --release --no-codesign
+        - name: after_build
+          script: echo "Build finished successfully!"
     artifacts:
       - build/ios/Runner.ipa
