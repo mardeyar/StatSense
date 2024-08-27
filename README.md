@@ -1,3 +1,5 @@
+# *** THIS REPO WILL NO LONGER BE MAINTAINED AS OF AUGUST 27/2024. REBRANDED WEBAPP VERSION FOUND HERE: https://puckwire.net
+
 <div style="display: flex; align-items: center;">
   <img align="left" width="40" height="40" src="https://raw.githubusercontent.com/mardeyar/StatSense/master/windows/runner/resources/app_icon.ico" alt="Resume application project app icon">
   <h1>StatSense</h1>
